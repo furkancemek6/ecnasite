@@ -1,5 +1,8 @@
 const root = document.documentElement;
 const scenes = Array.from(document.querySelectorAll("[data-scene]"));
+const collectionToggle = document.querySelector(".collection-toggle");
+const collectionOverlay = document.querySelector(".collection-overlay");
+const flowHero = document.querySelector(".flow-scene--hero");
 
 const observer = new IntersectionObserver(
   (entries) => {
@@ -26,6 +29,13 @@ const setDrift = () => {
     scene.style.setProperty("--drift", `${(drift * -18).toFixed(2)}px`);
   });
 
+  if (flowHero) {
+    const rect = flowHero.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1, -rect.top / (rect.height - viewport || viewport)));
+    flowHero.style.setProperty("--flow-hero-scale", (1 + progress * 0.03).toFixed(4));
+    flowHero.style.setProperty("--flow-hero-y", `${(-progress * 3).toFixed(3)}%`);
+  }
+
   ticking = false;
 };
 
@@ -39,3 +49,27 @@ const requestDrift = () => {
 window.addEventListener("scroll", requestDrift, { passive: true });
 window.addEventListener("resize", requestDrift);
 setDrift();
+
+if (collectionToggle && collectionOverlay) {
+  const setCollectionOpen = (isOpen) => {
+    collectionOverlay.classList.toggle("is-open", isOpen);
+    collectionOverlay.setAttribute("aria-hidden", String(!isOpen));
+    collectionToggle.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  collectionToggle.addEventListener("click", () => {
+    setCollectionOpen(!collectionOverlay.classList.contains("is-open"));
+  });
+
+  collectionOverlay.addEventListener("click", (event) => {
+    if (event.target === collectionOverlay) setCollectionOpen(false);
+  });
+
+  collectionOverlay.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setCollectionOpen(false));
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setCollectionOpen(false);
+  });
+}

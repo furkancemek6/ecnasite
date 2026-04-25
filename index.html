@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="site-mark" href="index.html" aria-label="ECNA">ECNA</a>
     <button class="collection-toggle" type="button" aria-expanded="false" aria-controls="collection-menu">
       MENU
     </button>
@@ -20,7 +21,7 @@
         <a href="flow.html">FLOW</a>
       </nav>
     </div>
-    <main class="experience" aria-label="ECNA spatial experience">
+    <main class="experience experience--landing" aria-label="ECNA spatial experience">
       <section class="scene scene--hero" data-scene>
         <div class="scene__space hero">
           <img
@@ -29,10 +30,47 @@
             alt="A monolithic black ECNA sofa isolated in a dark room with directional light."
           />
           <p class="hero__caption">
-            A low black volume, held close to the ground.
-            Matte surface, cut geometry, shadow.
-            Carved, not made.
+            Form holds the room.
           </p>
+        </div>
+      </section>
+
+      <section class="scene scene--presence" data-scene>
+        <div class="scene__space presence">
+          <img
+            class="set__image"
+            src="assets/ecna-monolith-reference.jpeg"
+            alt="The ECNA monolith sofa held in a quiet cinematic interior."
+          />
+          <p class="hero__caption">
+            Weight. Balance. Silence.
+          </p>
+        </div>
+      </section>
+
+      <section class="scene scene--detail" data-scene>
+        <div class="scene__space detail">
+          <img
+            class="threshold__image"
+            src="assets/ecna-monolith-reference.jpeg"
+            alt="A close view of the ECNA monolith material, geometry, and shadow."
+          />
+          <p class="hero__caption">
+            Material defines presence.
+          </p>
+        </div>
+      </section>
+
+      <section class="scene scene--collection" data-scene>
+        <div class="scene__space collection-entry-scene">
+          <img
+            class="threshold__image"
+            src="assets/ecna-monolith-reference.jpeg"
+            alt="A close material view of the ECNA monolith form."
+          />
+          <button class="collection-entry" type="button" aria-expanded="false" aria-controls="collection-menu">
+            COLLECTION
+          </button>
         </div>
       </section>
     </main>

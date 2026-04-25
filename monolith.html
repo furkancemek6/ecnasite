@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="site-mark" href="index.html" aria-label="ECNA">ECNA</a>
     <button class="collection-toggle" type="button" aria-expanded="false" aria-controls="collection-menu">
       MENU
     </button>
@@ -20,26 +21,40 @@
         <a href="flow.html">FLOW</a>
       </nav>
     </div>
-    <main class="product-page">
-      <section
-        class="product-hero"
-        style="--focus-x: 50%; --focus-y: 55%; --scale: 1; --mobile-scale: 1.18;"
-      >
+    <main class="monolith-page" aria-label="ECNA MONOLITH">
+      <section class="monolith-section monolith-section--object" data-scene>
         <img
-          class="product-hero__image"
+          class="monolith-section__image"
           src="assets/ecna-monolith-reference.jpeg"
-          alt="The ECNA MONOLITH sofa in dark directional light."
+          alt="The ECNA MONOLITH sofa isolated in dark directional light."
         />
-        <div class="product-meta">
-          <a href="index.html">ECNA</a>
-          <span>MONOLITH</span>
+        <div class="monolith-section__copy">
+          <p class="monolith-section__label">01</p>
+          <h1>OBJECT</h1>
         </div>
-        <div class="product-copy">
-          <p>
-            A low black volume, held close to the ground.
-            Matte surface, cut geometry, shadow.
-            Carved, not made.
-          </p>
+      </section>
+
+      <section class="monolith-section monolith-section--set" data-scene>
+        <img
+          class="monolith-section__image"
+          src="assets/ecna-gallery-reference.png"
+          alt="The ECNA MONOLITH set with sofa, chair, and table in a dark room."
+        />
+        <div class="monolith-section__copy">
+          <p class="monolith-section__label">02</p>
+          <h2>SET</h2>
+        </div>
+      </section>
+
+      <section class="monolith-section monolith-section--detail" data-scene>
+        <img
+          class="monolith-section__image"
+          src="assets/ecna-monolith-reference.jpeg"
+          alt="A close view of the ECNA MONOLITH surface, edge, and shadow."
+        />
+        <div class="monolith-section__copy">
+          <p class="monolith-section__label">03</p>
+          <h2>DETAIL</h2>
         </div>
       </section>
     </main>

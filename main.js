@@ -1,6 +1,7 @@
 const root = document.documentElement;
 const scenes = Array.from(document.querySelectorAll("[data-scene]"));
 const collectionToggle = document.querySelector(".collection-toggle");
+const collectionTriggers = Array.from(document.querySelectorAll(".collection-toggle, .collection-entry"));
 const collectionOverlay = document.querySelector(".collection-overlay");
 const flowHero = document.querySelector(".flow-scene--hero");
 
@@ -50,15 +51,19 @@ window.addEventListener("scroll", requestDrift, { passive: true });
 window.addEventListener("resize", requestDrift);
 setDrift();
 
-if (collectionToggle && collectionOverlay) {
+if (collectionTriggers.length && collectionOverlay) {
   const setCollectionOpen = (isOpen) => {
     collectionOverlay.classList.toggle("is-open", isOpen);
     collectionOverlay.setAttribute("aria-hidden", String(!isOpen));
-    collectionToggle.setAttribute("aria-expanded", String(isOpen));
+    collectionTriggers.forEach((trigger) => {
+      trigger.setAttribute("aria-expanded", String(isOpen));
+    });
   };
 
-  collectionToggle.addEventListener("click", () => {
-    setCollectionOpen(!collectionOverlay.classList.contains("is-open"));
+  collectionTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      setCollectionOpen(!collectionOverlay.classList.contains("is-open"));
+    });
   });
 
   collectionOverlay.addEventListener("click", (event) => {

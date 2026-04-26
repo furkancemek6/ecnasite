@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="STRATA by ECNA: limited architectural pieces layered through pressure and time."
+    />
+    <title>ECNA / STRATA</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
+  </head>
+  <body>
+    <div class="custom-cursor" aria-hidden="true">
+      <div class="custom-cursor__dot"></div>
+      <div class="custom-cursor__ring"></div>
+    </div>
+    <a class="site-mark" href="index.html" aria-label="ECNA">ECNA</a>
+    <button class="collection-toggle" type="button" aria-expanded="false" aria-controls="collection-menu">
+      MENU
+    </button>
+    <div class="collection-overlay" id="collection-menu" aria-hidden="true">
+      <div class="collection-scrim" data-menu-close></div>
+      <aside class="collection-drawer" role="dialog" aria-modal="true" aria-label="Menu">
+        <button class="collection-close" type="button" aria-label="Close menu">X</button>
+        <nav class="collection-nav" aria-label="Menu">
+          <div class="collection-nav__group">
+            <button class="collection-nav__trigger" type="button" aria-expanded="false" aria-controls="collection-submenu">
+              COLLECTIONS
+            </button>
+            <div class="collection-subnav" id="collection-submenu" data-collection-subnav data-path-prefix="" hidden></div>
+          </div>
+          <a href="about/index.html">ABOUT</a>
+          <a href="connect.html">CONNECT</a>
+        </nav>
+      </aside>
+    </div>
+
+    <main aria-label="ECNA STRATA collection">
+      <section class="scene scene--strata-collection" data-scene aria-label="STRATA collection gallery">
+        <div class="strata-header">
+          <h1>STRATA COLLECTION</h1>
+          <p>Layered through pressure and time</p>
+        </div>
+
+        <div class="strata-grid" aria-label="STRATA collection images">
+          <button
+            class="strata-tile strata-tile--hero"
+            type="button"
+            data-strata-tile
+            data-strata-src="assets/ecna-strata-1.png"
+            aria-label="Open STRATA collection image 1"
+          >
+            <span class="strata-crop strata-crop--full" aria-hidden="true">
+              <img src="assets/ecna-strata-1.png" alt="" loading="lazy" />
+            </span>
+            <span class="strata-hover">
+              <strong>STRATA</strong>
+              <small>Enter Collection</small>
+            </span>
+          </button>
+
+          <button
+            class="strata-tile"
+            type="button"
+            data-strata-tile
+            data-strata-src="assets/ecna-strata-4.png"
+            aria-label="Open STRATA collection image 4"
+          >
+            <span class="strata-crop strata-crop--full" aria-hidden="true">
+              <img src="assets/ecna-strata-4.png" alt="" loading="lazy" />
+            </span>
+            <span class="strata-hover">
+              <strong>STRATA</strong>
+              <small>Enter Collection</small>
+            </span>
+          </button>
+
+          <button
+            class="strata-tile"
+            type="button"
+            data-strata-tile
+            data-strata-src="assets/ecna-strata-6.png"
+            aria-label="Open STRATA collection image 6"
+          >
+            <span class="strata-crop strata-crop--full" aria-hidden="true">
+              <img src="assets/ecna-strata-6.png" alt="" loading="lazy" />
+            </span>
+            <span class="strata-hover">
+              <strong>STRATA</strong>
+              <small>Enter Collection</small>
+            </span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <div class="strata-modal" data-strata-modal hidden role="dialog" aria-modal="true" aria-label="STRATA fullscreen gallery">
+      <button class="strata-modal__close" type="button" data-strata-close aria-label="Close STRATA gallery">Close</button>
+      <div class="strata-modal__stage" data-strata-modal-stage>
+        <span class="strata-modal__crop strata-modal__crop--full">
+          <img src="assets/ecna-strata-1.png" alt="STRATA collection image" loading="lazy" data-strata-modal-image />
+        </span>
+        <span class="strata-modal__text" aria-hidden="true">
+          <strong>STRATA</strong>
+          <small>Enter Collection</small>
+        </span>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

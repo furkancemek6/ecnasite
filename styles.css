@@ -977,10 +977,12 @@ img {
   z-index: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   opacity: 0.84;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
   transition: opacity 1200ms var(--ecna-ease);
   will-change: opacity;
 }
@@ -1006,7 +1008,9 @@ img {
 
 .nox-hero.is-visible .nox-hero__image {
   opacity: 1;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
 }
 
 .nox-hero.is-visible .nox-hero__content {
@@ -1078,10 +1082,12 @@ img {
   width: 100%;
   height: 100%;
   margin: 0;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   opacity: 0.84;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
   transition: opacity 1200ms var(--ecna-ease);
   will-change: opacity;
 }
@@ -1091,9 +1097,11 @@ img {
 }
 
 .nox-story:nth-of-type(2) .nox-story__image {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
 }
 
 .nox-story__text {
@@ -1140,11 +1148,22 @@ img {
 
 .nox-story.is-visible .nox-story__image {
   opacity: 1;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
 }
 
 .nox-story:nth-of-type(2).is-visible .nox-story__image {
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
+}
+
+.nox-story--final .nox-story__image {
+  object-position: center center;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
 }
 
 .nox-story.is-visible .nox-story__text {
@@ -1204,10 +1223,12 @@ img {
   z-index: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   opacity: 0.84;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
   transition: opacity 1500ms var(--ecna-ease);
   will-change: opacity;
 }
@@ -1221,9 +1242,11 @@ img {
 }
 
 .leviathan-scene--set .leviathan-scene__image {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
 }
 
 .leviathan-scene--chair .leviathan-scene__image {
@@ -1252,11 +1275,23 @@ img {
 
 .leviathan-scene.is-visible .leviathan-scene__image {
   opacity: 1;
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
 }
 
 .leviathan-scene--set.is-visible .leviathan-scene__image {
-  transform: none;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
+}
+
+.leviathan-scene--detail .leviathan-scene__image,
+.leviathan-scene--chair .leviathan-scene__image {
+  object-position: center center;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
 }
 
 .leviathan-scene.is-visible .leviathan-scene__content {
@@ -3135,11 +3170,19 @@ body.menu-open .site-mark {
 
   .nox-story__image {
     height: 100%;
-    transform: none;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .nox-story:nth-of-type(2) .nox-story__image {
-    transform: none;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .nox-story__text {
@@ -3151,7 +3194,11 @@ body.menu-open .site-mark {
   }
 
   .nox-hero__image {
-    transform: none;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .nox-hero__content {
@@ -3165,11 +3212,15 @@ body.menu-open .site-mark {
 
   .nox-hero.is-visible .nox-hero__image,
   .nox-story.is-visible .nox-story__image {
-    transform: none;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .nox-story:nth-of-type(2).is-visible .nox-story__image {
-    transform: none;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .nox-hero.is-visible .nox-hero__content {
@@ -3211,7 +3262,11 @@ body.menu-open .site-mark {
 
   .leviathan-scene--sofa .leviathan-scene__image,
   .leviathan-scene--set .leviathan-scene__image {
-    object-position: center;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .leviathan-scene--detail .leviathan-scene__content {
@@ -3221,15 +3276,25 @@ body.menu-open .site-mark {
   }
 
   .leviathan-scene__image {
-    transform: none;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .leviathan-scene--set .leviathan-scene__image {
-    transform: none;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .leviathan-scene.is-visible .leviathan-scene__image {
-    transform: none;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
   }
 
   .leviathan-scene + .leviathan-scene {

@@ -1,22 +1,18 @@
 const root = document.documentElement;
-const cinematicScenes = Array.from(document.querySelectorAll(".experience--landing .scene, .flow-scene"));
+const cinematicScenes = Array.from(
+  document.querySelectorAll(".experience--landing .scene, .flow-scene, .nox-hero, .nox-story, .leviathan-scene"),
+);
 const scenes = cinematicScenes.length ? cinematicScenes : Array.from(document.querySelectorAll("[data-scene]"));
 const shouldPersistVisibility = cinematicScenes.length > 0;
 const collectionToggle = document.querySelector(".collection-toggle");
 const collectionOverlay = document.querySelector(".collection-overlay");
 const collectionClose = document.querySelector(".collection-close");
 const collectionNavTriggers = Array.from(document.querySelectorAll(".collection-nav__trigger"));
-const collectionSubnavs = Array.from(document.querySelectorAll("[data-collection-subnav]"));
 const flowHero = document.querySelector(".flow-scene--hero");
 const portal = document.querySelector(".scene--portal");
 const customCursor = document.querySelector(".custom-cursor");
 const cursorDot = customCursor?.querySelector(".custom-cursor__dot");
 const cursorRing = customCursor?.querySelector(".custom-cursor__ring");
-const strataTiles = Array.from(document.querySelectorAll("[data-strata-tile]"));
-const strataModal = document.querySelector("[data-strata-modal]");
-const strataModalCrop = document.querySelector("[data-strata-modal-crop]");
-const strataModalImage = document.querySelector("[data-strata-modal-image]");
-const strataClose = document.querySelector("[data-strata-close]");
 
 document
   .querySelectorAll(
@@ -150,24 +146,6 @@ if (customCursor && cursorDot && cursorRing && supportsCustomCursor) {
 if (collectionToggle && collectionOverlay) {
   let lastFocusedElement = null;
 
-  const collectionItems = [
-    ["MONOLITH", "monolith.html"],
-    ["FLOW", "flow.html"],
-    ["STRATA", "strata.html"],
-  ];
-
-  collectionSubnavs.forEach((subnav) => {
-    const prefix = subnav.dataset.pathPrefix || "";
-    subnav.replaceChildren(
-      ...collectionItems.map(([label, href]) => {
-        const link = document.createElement("a");
-        link.href = `${prefix}${href}`;
-        link.textContent = label;
-        return link;
-      }),
-    );
-  });
-
   const getDrawerFocusable = () =>
     Array.from(collectionOverlay.querySelectorAll("a[href], button:not([disabled])")).filter(
       (element) => element.offsetParent !== null,
@@ -184,9 +162,20 @@ if (collectionToggle && collectionOverlay) {
       window.setTimeout(() => {
         getDrawerFocusable()[0]?.focus({ preventScroll: true });
       }, 160);
-    } else if (lastFocusedElement instanceof HTMLElement) {
-      lastFocusedElement.focus({ preventScroll: true });
-      lastFocusedElement = null;
+    } else {
+      collectionNavTriggers.forEach((trigger) => {
+        const submenu = trigger.getAttribute("aria-controls")
+          ? document.getElementById(trigger.getAttribute("aria-controls"))
+          : null;
+
+        trigger.setAttribute("aria-expanded", "false");
+        if (submenu) submenu.hidden = true;
+      });
+
+      if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus({ preventScroll: true });
+        lastFocusedElement = null;
+      }
     }
   };
 
@@ -202,9 +191,9 @@ if (collectionToggle && collectionOverlay) {
       : null;
 
     trigger.addEventListener("click", () => {
-      const isOpen = trigger.getAttribute("aria-expanded") === "true";
-      trigger.setAttribute("aria-expanded", String(!isOpen));
-      if (submenu) submenu.hidden = isOpen;
+      const willOpen = trigger.getAttribute("aria-expanded") !== "true";
+      trigger.setAttribute("aria-expanded", String(willOpen));
+      if (submenu) submenu.hidden = !willOpen;
     });
   });
 
@@ -241,70 +230,6 @@ if (collectionToggle && collectionOverlay) {
       event.preventDefault();
       firstElement.focus({ preventScroll: true });
     }
-  });
-}
-
-if (strataTiles.length && strataModal) {
-  let strataLastFocus = null;
-  let strataCloseTimer = null;
-
-  const cropProperties = ["--crop-x", "--crop-y", "--origin-x", "--origin-y"];
-
-  const setStrataModalCrop = (tile) => {
-    if (tile.dataset.strataSrc && strataModalImage) {
-      strataModalImage.src = tile.dataset.strataSrc;
-      return;
-    }
-
-    if (!strataModalCrop) return;
-
-    cropProperties.forEach((property) => {
-      strataModalCrop.style.setProperty(property, tile.style.getPropertyValue(property));
-    });
-  };
-
-  const openStrataModal = (tile) => {
-    window.clearTimeout(strataCloseTimer);
-    strataLastFocus = document.activeElement;
-    setStrataModalCrop(tile);
-    strataModal.hidden = false;
-    document.body.classList.add("strata-modal-open");
-
-    window.requestAnimationFrame(() => {
-      strataModal.classList.add("is-open");
-      strataClose?.focus({ preventScroll: true });
-    });
-  };
-
-  const closeStrataModal = () => {
-    if (strataModal.hidden) return;
-
-    strataModal.classList.remove("is-open");
-    document.body.classList.remove("strata-modal-open");
-
-    strataCloseTimer = window.setTimeout(() => {
-      strataModal.hidden = true;
-
-      if (strataLastFocus instanceof HTMLElement) {
-        strataLastFocus.focus({ preventScroll: true });
-      }
-
-      strataLastFocus = null;
-    }, 400);
-  };
-
-  strataTiles.forEach((tile) => {
-    tile.addEventListener("click", () => openStrataModal(tile));
-  });
-
-  strataClose?.addEventListener("click", closeStrataModal);
-
-  strataModal.addEventListener("click", (event) => {
-    if (event.target === strataModal) closeStrataModal();
-  });
-
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !strataModal.hidden) closeStrataModal();
   });
 }
 

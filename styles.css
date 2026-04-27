@@ -951,7 +951,9 @@ img {
 .nox-hero {
   position: relative;
   display: grid;
-  min-height: 100svh;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   place-items: center;
   padding: 0;
   overflow: hidden;
@@ -978,37 +980,39 @@ img {
   object-fit: contain;
   object-position: center;
   opacity: 0.84;
-  transform: translate3d(calc(var(--drift, 0px) * 0.05), 0, 0) scale(1);
-  transition:
-    transform 1600ms var(--ecna-ease),
-    opacity 1200ms var(--ecna-ease);
-  will-change: transform, opacity;
+  transform: none;
+  transition: opacity 1200ms var(--ecna-ease);
+  will-change: opacity;
 }
 
 .nox-hero__content {
   position: absolute;
-  top: clamp(5rem, 14svh, 9rem);
-  left: 50%;
+  top: clamp(5rem, 14svh, 8.5rem);
+  left: clamp(1rem, 6.4vw, 7rem);
+  bottom: auto;
   z-index: 2;
-  width: min(100% - 2.4rem, 56rem);
-  text-align: center;
+  width: min(100% - 2.4rem, 31.25rem);
+  text-align: left;
   color: #E8E2D6;
   opacity: 0;
-  transform: translate3d(-50%, 18px, 0);
+  transform: translateY(40px);
+  clip-path: inset(100% 0 0);
   text-shadow: 0 0 24px rgba(0, 0, 0, 0.68);
   transition:
-    opacity 900ms var(--ecna-ease) 260ms,
-    transform 900ms var(--ecna-ease) 260ms;
+    opacity 760ms var(--ecna-ease) 200ms,
+    transform 760ms var(--ecna-ease) 200ms,
+    clip-path 760ms var(--ecna-ease) 200ms;
 }
 
 .nox-hero.is-visible .nox-hero__image {
   opacity: 1;
-  transform: translate3d(calc(var(--drift, 0px) * 0.05), 0, 0) scale(1);
+  transform: none;
 }
 
 .nox-hero.is-visible .nox-hero__content {
   opacity: 1;
-  transform: translate3d(-50%, 0, 0);
+  transform: translateY(0);
+  clip-path: inset(0);
 }
 
 .nox-hero h1 {
@@ -1018,28 +1022,37 @@ img {
     "Helvetica Neue",
     Arial,
     sans-serif;
-  font-size: clamp(4.8rem, 13vw, 13rem);
+  font-size: clamp(1.45rem, 3.5vw, 4.4rem);
   font-weight: 300;
-  letter-spacing: 0.05em;
-  line-height: 0.86;
-  opacity: 0.86;
+  letter-spacing: 0.04em;
+  line-height: 1.04;
+  opacity: 0.54;
   text-transform: uppercase;
+  transition: opacity 500ms ease;
 }
 
 .nox-hero__content p {
-  margin: clamp(1rem, 2.4svh, 1.6rem) 0 0;
+  margin: 0.8rem 0 0;
   color: #E8E2D6;
-  font-size: clamp(1.1rem, 2vw, 2rem);
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  line-height: 1.35;
-  opacity: 0.72;
+  font-family:
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: clamp(0.6875rem, 0.74vw, 0.8125rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  opacity: 0.28;
+  text-transform: uppercase;
+  transition: opacity 500ms ease;
 }
 
 .nox-story {
   position: relative;
   display: grid;
-  min-height: 100svh;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   place-items: center;
   padding: 0;
   margin: 0;
@@ -1063,71 +1076,93 @@ img {
   inset: 0;
   z-index: 0;
   width: 100%;
-  height: 100svh;
+  height: 100%;
   margin: 0;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   opacity: 0.84;
-  transform: translate3d(calc(var(--drift, 0px) * 0.05), 0, 0) scale(1.035);
-  transition:
-    transform 1600ms var(--ecna-ease),
-    opacity 1200ms var(--ecna-ease);
-  will-change: transform, opacity;
+  transform: none;
+  transition: opacity 1200ms var(--ecna-ease);
+  will-change: opacity;
 }
 
 .nox-story:nth-of-type(4) .nox-story__image {
-  object-position: center 56%;
+  object-position: center;
 }
 
 .nox-story:nth-of-type(2) .nox-story__image {
   object-fit: contain;
   object-position: center;
-  transform: translate3d(calc(var(--drift, 0px) * 0.05), 0, 0) scale(1);
+  transform: none;
 }
 
 .nox-story__text {
   position: absolute;
-  top: clamp(4.5rem, 13svh, 8rem);
+  top: clamp(5rem, 14svh, 8.5rem);
   left: clamp(1.2rem, 7vw, 8rem);
+  bottom: auto;
   z-index: 2;
-  width: min(100% - 2.4rem, 26rem);
+  width: min(100% - 2.4rem, 31.25rem);
   margin: 0;
   color: #E8E2D6;
-  font-size: clamp(1.05rem, 2.2vw, 2.75rem);
+  font-family:
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: clamp(1.45rem, 3.5vw, 4.4rem);
   font-weight: 300;
-  letter-spacing: 0.02em;
-  line-height: 1.16;
+  letter-spacing: 0.04em;
+  line-height: 1.04;
   text-align: left;
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(40px);
+  clip-path: inset(100% 0 0);
   text-shadow: 0 0 22px rgba(0, 0, 0, 0.72);
   transition:
-    opacity 900ms var(--ecna-ease) 240ms,
-    transform 900ms var(--ecna-ease) 240ms;
+    opacity 760ms var(--ecna-ease) 200ms,
+    transform 760ms var(--ecna-ease) 200ms,
+    clip-path 760ms var(--ecna-ease) 200ms;
 }
 
 .nox-story:nth-of-type(3) .nox-story__text {
+  top: clamp(5rem, 14svh, 8.5rem);
   right: clamp(1.2rem, 7vw, 8rem);
+  bottom: auto;
   left: auto;
-  width: min(100% - 2.4rem, 24rem);
+  width: min(100% - 2.4rem, 31.25rem);
 }
 
 .nox-story--final .nox-story__text {
-  width: min(100% - 2.4rem, 24rem);
+  top: clamp(5rem, 14svh, 8.5rem);
+  bottom: auto;
+  width: min(100% - 2.4rem, 31.25rem);
 }
 
 .nox-story.is-visible .nox-story__image {
   opacity: 1;
-  transform: translate3d(calc(var(--drift, 0px) * 0.05), 0, 0) scale(1);
+  transform: none;
 }
 
 .nox-story:nth-of-type(2).is-visible .nox-story__image {
-  transform: translate3d(calc(var(--drift, 0px) * 0.05), 0, 0) scale(1);
+  transform: none;
 }
 
 .nox-story.is-visible .nox-story__text {
-  opacity: 0.7;
+  opacity: 0.54;
   transform: translateY(0);
+  clip-path: inset(0);
+}
+
+.nox-hero:hover h1,
+.nox-hero:focus-within h1,
+.nox-story:hover .nox-story__text,
+.nox-story:focus-within .nox-story__text {
+  opacity: 0.72;
+}
+
+.nox-hero:hover .nox-hero__content p,
+.nox-hero:focus-within .nox-hero__content p {
+  opacity: 0.36;
 }
 
 .leviathan-page {
@@ -1139,8 +1174,9 @@ img {
 .leviathan-scene {
   position: relative;
   display: grid;
-  height: 100svh;
-  min-height: 100svh;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   place-items: center;
   margin: 0;
   overflow: hidden;
@@ -1168,108 +1204,135 @@ img {
   z-index: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   opacity: 0.84;
-  transform: translate3d(calc(var(--drift, 0px) * 0.035), 0, 0) scale(1.03);
-  transition:
-    transform 1900ms var(--ecna-ease),
-    opacity 1500ms var(--ecna-ease);
-  will-change: transform, opacity;
+  transform: none;
+  transition: opacity 1500ms var(--ecna-ease);
+  will-change: opacity;
 }
 
 .leviathan-scene--sofa .leviathan-scene__image {
-  object-position: center 56%;
+  object-position: center;
 }
 
 .leviathan-scene--detail .leviathan-scene__image {
-  object-position: center 52%;
+  object-position: center;
 }
 
 .leviathan-scene--set .leviathan-scene__image {
   object-fit: contain;
   object-position: center;
-  transform: translate3d(calc(var(--drift, 0px) * 0.035), 0, 0) scale(1);
+  transform: none;
 }
 
 .leviathan-scene--chair .leviathan-scene__image {
-  object-position: center 55%;
+  object-position: center;
 }
 
 .leviathan-scene__content {
   position: absolute;
   top: clamp(5rem, 14svh, 8.5rem);
   left: clamp(1.2rem, 7vw, 8rem);
+  bottom: auto;
   z-index: 2;
   width: min(100% - 2.4rem, 31.25rem);
   margin: 0;
-  color: #EDEDED;
+  color: #E8E2D6;
   text-align: left;
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(40px);
+  clip-path: inset(100% 0 0);
   text-shadow: 0 0 24px rgba(0, 0, 0, 0.72);
   transition:
-    opacity 1000ms var(--ecna-ease) 300ms,
-    transform 1000ms var(--ecna-ease) 300ms;
+    opacity 760ms var(--ecna-ease) 200ms,
+    transform 760ms var(--ecna-ease) 200ms,
+    clip-path 760ms var(--ecna-ease) 200ms;
 }
 
 .leviathan-scene.is-visible .leviathan-scene__image {
   opacity: 1;
-  transform: translate3d(calc(var(--drift, 0px) * 0.035), 0, 0) scale(1);
+  transform: none;
 }
 
 .leviathan-scene--set.is-visible .leviathan-scene__image {
-  transform: translate3d(calc(var(--drift, 0px) * 0.035), 0, 0) scale(1);
+  transform: none;
 }
 
 .leviathan-scene.is-visible .leviathan-scene__content {
   opacity: 1;
   transform: translateY(0);
+  clip-path: inset(0);
 }
 
 .leviathan-scene__content h1,
 .leviathan-scene__content h2 {
   margin: 0;
-  color: #EDEDED;
+  color: #E8E2D6;
   font-family:
     "Helvetica Neue",
     Arial,
     sans-serif;
-  font-size: clamp(3rem, 7vw, 6.6rem);
-  font-weight: 400;
-  letter-spacing: 0.075em;
-  line-height: 0.9;
-  opacity: 0.86;
+  font-size: clamp(1.45rem, 3.5vw, 4.4rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.04;
+  opacity: 0.54;
   text-transform: uppercase;
+  transition: opacity 500ms ease;
 }
 
 .leviathan-scene__content p {
-  margin: clamp(1rem, 2.4svh, 1.6rem) 0 0;
-  color: #EDEDED;
-  font-size: clamp(1.1rem, 2vw, 2rem);
-  font-weight: 300;
-  letter-spacing: 0.04em;
+  margin: 0.8rem 0 0;
+  color: #E8E2D6;
+  font-family:
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: clamp(0.6875rem, 0.74vw, 0.8125rem);
+  font-weight: 400;
   line-height: 1.35;
-  opacity: 0.58;
+  letter-spacing: 0.18em;
+  opacity: 0.28;
+  text-transform: uppercase;
+  transition: opacity 500ms ease;
 }
 
 .leviathan-scene__content--small p {
   margin: 0;
-  font-size: clamp(1.2rem, 2.65vw, 3.25rem);
-  line-height: 1.16;
-  opacity: 0.7;
+  font-size: clamp(1.45rem, 3.5vw, 4.4rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.04;
+  opacity: 0.54;
+  text-transform: none;
 }
 
 .leviathan-scene--detail .leviathan-scene__content {
   right: clamp(1.2rem, 7vw, 8rem);
   left: auto;
   top: clamp(4.5rem, 12svh, 7rem);
+  bottom: auto;
   width: min(100% - 2.4rem, 27rem);
 }
 
-.leviathan-scene--set .leviathan-scene__content,
 .leviathan-scene--chair .leviathan-scene__content {
   top: clamp(4.5rem, 12svh, 7rem);
+  bottom: auto;
+}
+
+.leviathan-scene:hover .leviathan-scene__content h1,
+.leviathan-scene:hover .leviathan-scene__content h2,
+.leviathan-scene:focus-within .leviathan-scene__content h1,
+.leviathan-scene:focus-within .leviathan-scene__content h2,
+.leviathan-scene:hover .leviathan-scene__content--small p,
+.leviathan-scene:focus-within .leviathan-scene__content--small p {
+  opacity: 0.72;
+}
+
+.leviathan-scene:hover .leviathan-scene__content p,
+.leviathan-scene:focus-within .leviathan-scene__content p {
+  opacity: 0.36;
 }
 
 .monolith-statement__body p {
@@ -3048,63 +3111,69 @@ body.menu-open .site-mark {
   }
 
   .nox-hero {
-    min-height: 100svh;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
     padding: 0;
   }
 
   .nox-hero h1 {
-    font-size: clamp(4rem, 22vw, 7rem);
+    font-size: clamp(1.45rem, 3.5vw, 4.4rem);
     letter-spacing: 0.04em;
   }
 
   .nox-hero__content p {
-    font-size: clamp(1rem, 5vw, 1.35rem);
+    font-size: clamp(0.6875rem, 0.74vw, 0.8125rem);
   }
 
   .nox-story {
     padding: 0;
-    min-height: 100svh;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
   }
 
   .nox-story__image {
-    height: 100svh;
-    transform: translate3d(calc(var(--drift, 0px) * 0.03), 0, 0) scale(1.02);
+    height: 100%;
+    transform: none;
   }
 
   .nox-story:nth-of-type(2) .nox-story__image {
-    transform: translate3d(calc(var(--drift, 0px) * 0.03), 0, 0) scale(1);
+    transform: none;
   }
 
   .nox-story__text {
     width: min(100% - 2rem, 28rem);
     margin: 0 auto;
-    font-size: clamp(1.15rem, 6.4vw, 2.2rem);
-    line-height: 1.18;
+    font-size: clamp(1.45rem, 3.5vw, 4.4rem);
+    line-height: 1.04;
     transform: translateY(12px);
   }
 
   .nox-hero__image {
-    transform: translate3d(calc(var(--drift, 0px) * 0.03), 0, 0) scale(1);
+    transform: none;
   }
 
   .nox-hero__content {
     top: clamp(5rem, 12svh, 6.5rem);
-    left: 50%;
+    right: 1rem;
+    bottom: auto;
+    left: 1rem;
     width: min(100% - 2rem, 28rem);
-    transform: translate3d(-50%, 12px, 0);
+    transform: translateY(12px);
   }
 
   .nox-hero.is-visible .nox-hero__image,
   .nox-story.is-visible .nox-story__image {
-    transform: translate3d(calc(var(--drift, 0px) * 0.03), 0, 0) scale(1);
+    transform: none;
   }
 
   .nox-story:nth-of-type(2).is-visible .nox-story__image {
-    transform: translate3d(calc(var(--drift, 0px) * 0.03), 0, 0) scale(1);
+    transform: none;
   }
 
   .nox-hero.is-visible .nox-hero__content {
-    transform: translate3d(-50%, 0, 0);
+    transform: translateY(0);
   }
 
   .nox-story:nth-of-type(3) .nox-story__text,
@@ -3128,16 +3197,16 @@ body.menu-open .site-mark {
 
   .leviathan-scene__content h1,
   .leviathan-scene__content h2 {
-    font-size: clamp(2.8rem, 12vw, 4.8rem);
-    letter-spacing: 0.055em;
+    font-size: clamp(1.45rem, 3.5vw, 4.4rem);
+    letter-spacing: 0.04em;
   }
 
   .leviathan-scene__content p {
-    font-size: clamp(1rem, 5vw, 1.35rem);
+    font-size: clamp(0.6875rem, 0.74vw, 0.8125rem);
   }
 
   .leviathan-scene__content--small p {
-    font-size: clamp(1.15rem, 6.4vw, 2.2rem);
+    font-size: clamp(1.45rem, 3.5vw, 4.4rem);
   }
 
   .leviathan-scene--sofa .leviathan-scene__image,
@@ -3152,15 +3221,15 @@ body.menu-open .site-mark {
   }
 
   .leviathan-scene__image {
-    transform: translate3d(calc(var(--drift, 0px) * 0.02), 0, 0) scale(1.02);
+    transform: none;
   }
 
   .leviathan-scene--set .leviathan-scene__image {
-    transform: translate3d(calc(var(--drift, 0px) * 0.02), 0, 0) scale(1);
+    transform: none;
   }
 
   .leviathan-scene.is-visible .leviathan-scene__image {
-    transform: translate3d(calc(var(--drift, 0px) * 0.02), 0, 0) scale(1);
+    transform: none;
   }
 
   .leviathan-scene + .leviathan-scene {

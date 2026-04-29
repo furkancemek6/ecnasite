@@ -2004,6 +2004,7 @@ body:has(.flow-page) .collection-toggle {
   background: transparent;
   font-family: inherit;
   text-align: left;
+  text-transform: none;
   cursor: pointer;
 }
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="tide-root">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +10,37 @@
     <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
   </head>
   <body class="tide-body">
+    <div class="custom-cursor" aria-hidden="true">
+      <div class="custom-cursor__dot"></div>
+      <div class="custom-cursor__ring"></div>
+    </div>
+    <a class="site-mark" href="index.html" aria-label="ECNA">ECNA</a>
+    <button class="collection-toggle" type="button" aria-expanded="false" aria-controls="collection-menu">
+      MENU
+    </button>
+    <div class="collection-overlay" id="collection-menu" aria-hidden="true">
+      <div class="collection-scrim" data-menu-close></div>
+      <aside class="collection-drawer" role="dialog" aria-modal="true" aria-label="Menu">
+        <button class="collection-close" type="button" aria-label="Close menu">X</button>
+        <nav class="collection-nav" aria-label="Menu">
+          <div class="collection-nav__group">
+            <button class="collection-nav__trigger" type="button" aria-expanded="false" aria-controls="collection-submenu">
+              COLLECTIONS
+            </button>
+            <div class="collection-subnav" id="collection-submenu" hidden>
+              <a href="monolith.html">MONOLITH</a>
+              <a href="nox.html">NOX</a>
+              <a href="leviathan.html">LEVIATHAN</a>
+              <a href="tide.html">TIDE</a>
+              <a href="core.html">CORE</a>
+              <a href="flow.html">FLOW</a>
+            </div>
+          </div>
+          <a href="about/index.html">ABOUT</a>
+          <a href="connect.html">CONNECT</a>
+        </nav>
+      </aside>
+    </div>
     <main class="tide-page" aria-label="TIDE Collection">
       <section class="tide-section tide-section--hero" aria-label="TIDE hero image">
         <img class="tide-section__image" src="assets/ecna-tide-hero.png" alt="TIDE sculptural object in warm architectural light by the sea." />
@@ -37,5 +68,6 @@
         </div>
       </section>
     </main>
+    <script src="main.js"></script>
   </body>
 </html>

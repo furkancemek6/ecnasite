@@ -1,6 +1,8 @@
 const root = document.documentElement;
 const cinematicScenes = Array.from(
-  document.querySelectorAll(".experience--landing .scene, .flow-scene, .nox-hero, .nox-story, .leviathan-scene"),
+  document.querySelectorAll(
+    ".experience--landing .scene, .monolith-section, .flow-scene, .nox-hero, .nox-story, .leviathan-scene, .tide-section",
+  ),
 );
 const scenes = cinematicScenes.length ? cinematicScenes : Array.from(document.querySelectorAll("[data-scene]"));
 const shouldPersistVisibility = cinematicScenes.length > 0;
@@ -16,7 +18,19 @@ const cursorRing = customCursor?.querySelector(".custom-cursor__ring");
 
 document
   .querySelectorAll(
-    ".experience--landing .hero__caption, .experience--landing .collection-entry, .flow-scene__label, .flow-scene__copy h1, .flow-scene__copy h2",
+    [
+      ".experience--landing .hero__caption",
+      ".experience--landing .scene__content p",
+      ".experience--landing .monolith-transition__content p",
+      ".experience--landing .portal__content span",
+      ".experience--landing .portal__content small",
+      ".monolith-section__copy > *",
+      ".flow-scene__copy > *",
+      ".nox-hero__content > *",
+      ".nox-story__text",
+      ".leviathan-scene__content > *",
+      ".tide-section__text > *",
+    ].join(", "),
   )
   .forEach((element) => element.classList.add("reveal-text"));
 

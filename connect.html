@@ -18,15 +18,51 @@
       <div class="custom-cursor__ring"></div>
     </div>
     <a class="site-mark" href="index.html" aria-label="ECNA">ECNA</a>
+    <button class="collection-toggle" type="button" aria-expanded="false" aria-controls="collection-menu">
+      MENU
+    </button>
+    <div class="collection-overlay" id="collection-menu" aria-hidden="true">
+      <div class="collection-scrim" data-menu-close></div>
+      <aside class="collection-drawer" role="dialog" aria-modal="true" aria-label="Menu">
+        <button class="collection-close" type="button" aria-label="Close menu">X</button>
+        <nav class="collection-nav" aria-label="Menu">
+          <div class="collection-nav__group">
+            <button class="collection-nav__trigger" type="button" aria-expanded="false" aria-controls="collection-submenu">
+              COLLECTIONS
+            </button>
+            <div class="collection-subnav" id="collection-submenu" hidden>
+              <a href="monolith.html">MONOLITH</a>
+              <a href="tide.html">TIDE</a>
+              <a href="leviathan.html">LEVIATHAN</a>
+              <a href="flow.html">FLOW</a>
+              <a href="nox.html">NOX</a>
+            </div>
+          </div>
+          <a href="about/index.html">ABOUT</a>
+          <a href="connect.html">CONNECT</a>
+        </nav>
+      </aside>
+    </div>
     <main class="connect-page" aria-label="ECNA CONNECT">
       <section class="connect-section">
         <p class="connect-kicker">CONNECT</p>
-        <a class="connect-email" href="mailto:hello@ecnafurniture.com">hello@ecnafurniture.com</a>
-        <p class="connect-description">For inquiries, commissions and limited pieces.</p>
-        <div class="connect-social">
-          <p>Instagram</p>
-          <a href="https://instagram.com/ecnafurniture" target="_blank" rel="noopener noreferrer">@ecnafurniture</a>
-        </div>
+        <p class="connect-description">For inquiries.</p>
+        <form class="connect-form" action="mailto:hello@ecnafurniture.com" method="post" enctype="text/plain">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" placeholder="Email" />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="4" placeholder="Message"></textarea>
+          </label>
+          <button type="submit">Inquire</button>
+          <p class="connect-form__note">Responses are limited.</p>
+        </form>
       </section>
     </main>
     <script src="main.js"></script>

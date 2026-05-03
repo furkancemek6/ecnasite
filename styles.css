@@ -149,7 +149,8 @@ html:has(.experience--landing),
 html:has(.monolith-page),
 html:has(.flow-page),
 html:has(.nox-page),
-html:has(.leviathan-page) {
+html:has(.leviathan-page),
+html:has(.core-page) {
   scroll-snap-type: y mandatory;
 }
 
@@ -159,7 +160,8 @@ html:has(.leviathan-page) {
 .nox-hero,
 .nox-story,
 .leviathan-scene,
-.tide-section {
+.tide-section,
+.core-scene {
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -1413,6 +1415,142 @@ img {
   opacity: 0.36;
 }
 
+.core-page {
+  min-height: 100vh;
+  background: #050505;
+  color: #E8E2D6;
+}
+
+.core-scene {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  max-height: 100svh;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #050505;
+}
+
+.core-scene + .core-scene {
+  margin-top: 0;
+}
+
+.core-scene::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(ellipse at 50% 56%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2) 78%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12), transparent 44%, rgba(0, 0, 0, 0.28));
+}
+
+.core-scene__image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100svh;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center 62%;
+  opacity: 0.92;
+  transform: none !important;
+  scale: none !important;
+  translate: none !important;
+  transition: opacity 1200ms var(--ecna-ease);
+  will-change: opacity;
+}
+
+.core-scene--second .core-scene__image {
+  object-position: center 62%;
+}
+
+.core-scene--final .core-scene__image {
+  object-position: center 64%;
+}
+
+.core-scene__content {
+  position: absolute;
+  bottom: clamp(3rem, 9svh, 6rem);
+  left: clamp(1.2rem, 7vw, 8rem);
+  z-index: 2;
+  width: min(100% - 2.4rem, 27rem);
+  color: rgba(245, 240, 230, 0.62);
+  font-family:
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(40px);
+  clip-path: inset(100% 0 0);
+  text-shadow: 0 0 22px rgba(0, 0, 0, 0.64);
+  transition:
+    opacity 760ms var(--ecna-ease) 200ms,
+    transform 760ms var(--ecna-ease) 200ms,
+    clip-path 760ms var(--ecna-ease) 200ms;
+}
+
+.core-scene.is-visible .core-scene__image {
+  opacity: 1;
+}
+
+.core-scene.is-visible .core-scene__content {
+  opacity: 1;
+  transform: translateY(0);
+  clip-path: inset(0);
+}
+
+.core-scene__content h1 {
+  margin: 0;
+  color: rgba(245, 240, 230, 0.62);
+  font-size: clamp(1.05rem, 1.35vw, 1.45rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.16em;
+}
+
+.core-scene__content p {
+  margin: 0.55rem 0 0;
+  color: rgba(245, 240, 230, 0.62);
+  font-size: clamp(0.8rem, 0.95vw, 1rem);
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+}
+
+.core-scene__content--small p {
+  margin: 0;
+  max-width: 24rem;
+}
+
+.core-scene .collection-inquire {
+  color: rgba(245, 240, 230, 0.62);
+}
+
+.core-scene:hover .core-scene__content h1,
+.core-scene:focus-within .core-scene__content h1 {
+  opacity: 0.76;
+}
+
+.core-scene:hover .core-scene__content p,
+.core-scene:focus-within .core-scene__content p,
+.core-scene:hover .collection-inquire,
+.core-scene:focus-within .collection-inquire {
+  opacity: 0.68;
+}
+
 .monolith-statement__body p {
   margin: 0;
 }
@@ -1673,12 +1811,14 @@ img {
 .nox-story__text.reveal-text,
 .leviathan-scene__content h1.reveal-text,
 .leviathan-scene__content h2.reveal-text,
-.leviathan-scene__content--small p.reveal-text {
+.leviathan-scene__content--small p.reveal-text,
+.core-scene__content h1.reveal-text {
   --reveal-opacity: 0.54;
 }
 
 .nox-hero__content p.reveal-text,
 .leviathan-scene__content p.reveal-text,
+.core-scene__content p.reveal-text,
 .collection-final-note.reveal-text,
 .collection-inquire.reveal-text {
   --reveal-opacity: 0.34;
@@ -2288,6 +2428,22 @@ body.menu-open .site-mark {
   opacity: 0.62;
 }
 
+.connect-scope {
+  max-width: 34rem;
+  margin: clamp(0.8rem, 2svh, 1.35rem) 0 0;
+  color: rgba(245, 240, 230, 0.62);
+  font-family:
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: clamp(0.86rem, 1vw, 1rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+  opacity: 0.5;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
 .connect-form {
   display: flex;
   flex-direction: column;
@@ -2722,6 +2878,26 @@ body.menu-open .site-mark {
   font-size: clamp(1.375rem, 2vw, 2rem);
   line-height: 1.5;
   opacity: 0.9;
+}
+
+.about-capability {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.8rem, 2svh, 1.15rem);
+  max-width: 500px;
+  margin: clamp(0.1rem, 0.8svh, 0.45rem) 0;
+  color: rgba(245, 240, 230, 0.62);
+}
+
+.about-copy .about-capability p {
+  font-size: clamp(0.92rem, 1vw, 1.05rem);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  opacity: 0.58;
+}
+
+.about-copy .about-capability p:first-child {
+  opacity: 0.72;
 }
 
 .monolith-section {
@@ -3239,11 +3415,13 @@ body.menu-open .site-mark {
   }
 
   .about-section {
+    width: 100%;
     height: auto;
     max-width: none;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    overflow: hidden;
     padding: clamp(6rem, 12svh, 8rem) 1.2rem clamp(4rem, 8svh, 6rem);
   }
 
@@ -3252,8 +3430,11 @@ body.menu-open .site-mark {
   }
 
   .about-panel {
-    max-width: none;
+    width: 100%;
+    max-width: min(100%, 21.5rem);
     max-height: none;
+    min-width: 0;
+    align-self: flex-start;
     overflow: visible;
   }
 
@@ -3262,17 +3443,26 @@ body.menu-open .site-mark {
   }
 
   .about-copy {
+    width: 100%;
+    max-width: min(100%, 21.5rem);
+    min-width: 0;
     gap: clamp(1.25rem, 3svh, 1.8rem);
   }
 
   .about-copy p {
-    font-size: clamp(1rem, 4.7vw, 1.32rem);
+    max-width: 100%;
+    font-size: clamp(0.95rem, 4.35vw, 1.24rem);
     line-height: 1.62;
+    overflow-wrap: break-word;
   }
 
   .about-copy .about-lead {
-    font-size: clamp(1.35rem, 6.2vw, 2rem);
+    font-size: clamp(1.12rem, 5.5vw, 1.55rem);
     line-height: 1.42;
+  }
+
+  .about-copy .about-capability p {
+    font-size: clamp(0.86rem, 3.9vw, 1rem);
   }
 
   .monolith-transition__content {
@@ -3795,6 +3985,15 @@ body.menu-open .site-mark {
 }
 
 @media (max-width: 768px) {
+  html,
+  body,
+  .tide-root {
+    scroll-snap-type: none !important;
+    overflow-x: hidden;
+  }
+
+  .experience--landing .scene,
+  .experience--landing .scene__space,
   .scene--monolith-cave,
   .scene--monolith-transition,
   .scene--portal,
@@ -3804,14 +4003,21 @@ body.menu-open .site-mark {
   .nox-story,
   .leviathan-scene,
   .tide-section,
+  .core-scene,
   .product-hero {
-    height: auto !important;
-    min-height: 100vh !important;
+    position: relative;
+    width: 100%;
+    height: 100svh !important;
     min-height: 100svh !important;
     max-height: none !important;
-    background: #0a0a0a;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 
+  .experience--landing .hero__image,
+  .experience--landing .set__image,
+  .experience--landing .threshold__image,
   .scene--monolith-cave img,
   .monolith-transition__image,
   .portal__media img,
@@ -3821,16 +4027,192 @@ body.menu-open .site-mark {
   .nox-story__image,
   .leviathan-scene__image,
   .tide-section__image,
+  .core-scene__image,
   .product-hero__image {
+    position: absolute;
+    inset: 0;
+    display: block;
     width: 100% !important;
     height: 100% !important;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain !important;
-    object-position: center center !important;
+    min-height: 100svh;
+    max-width: none;
+    max-height: none;
+    object-fit: cover !important;
+    object-position: center center;
     transform: none !important;
     scale: none !important;
     translate: none !important;
-    background: #0a0a0a;
+  }
+
+  .collection-nav > a,
+  .collection-nav__trigger {
+    font-size: clamp(13px, 3.5vw, 18px);
+    line-height: 1.25;
+    letter-spacing: 0.16em;
+  }
+
+  .collection-subnav a {
+    font-size: clamp(11px, 3.2vw, 16px);
+    line-height: 1.35;
+  }
+
+  .hero__caption,
+  .scene__body,
+  .scene__note,
+  .monolith-transition__body,
+  .monolith-transition__note,
+  .monolith-section__label,
+  .flow-scene__label,
+  .nox-hero__content p,
+  .leviathan-scene__content p,
+  .core-scene__content p,
+  .collection-final-note,
+  .collection-inquire,
+  .tide-section__text p,
+  .tide-inquire {
+    font-size: clamp(11px, 2.8vw, 16px) !important;
+    line-height: 1.35;
+  }
+
+  .portal__content span,
+  .monolith-section__copy h1,
+  .monolith-section__copy h2,
+  .flow-scene__copy h1,
+  .flow-scene__copy h2,
+  .nox-hero__content h1,
+  .nox-story__text,
+  .leviathan-scene__content h1,
+  .leviathan-scene__content h2,
+  .leviathan-scene__content--small p,
+  .tide-section__text h1,
+  .core-scene__content h1 {
+    font-size: clamp(16px, 5vw, 28px) !important;
+    line-height: 1.16;
+  }
+
+  .hero__caption,
+  .scene--monolith-cave .scene__content,
+  .monolith-transition__content,
+  .portal__content,
+  .monolith-section__copy,
+  .flow-scene__copy,
+  .nox-hero__content,
+  .nox-story__text,
+  .leviathan-scene__content,
+  .tide-section__text,
+  .core-scene__content,
+  .product-copy {
+    left: clamp(20px, 6vw, 96px) !important;
+    right: clamp(20px, 6vw, 96px) !important;
+    max-width: min(420px, calc(100vw - 40px)) !important;
+    overflow: visible;
+  }
+
+  .hero__caption,
+  .monolith-section__copy,
+  .flow-scene__copy,
+  .portal__content,
+  .tide-section__text,
+  .core-scene__content,
+  .product-copy {
+    top: auto !important;
+    bottom: clamp(32px, 8svh, 96px) !important;
+  }
+
+  .nox-hero__content,
+  .nox-story__text,
+  .leviathan-scene__content,
+  .scene--monolith-cave .scene__content,
+  .monolith-transition__content {
+    top: clamp(72px, 12svh, 112px) !important;
+    bottom: auto !important;
+  }
+
+  .scene--monolith-cave img,
+  .monolith-transition__image {
+    object-position: center center !important;
+  }
+
+  .portal__media img {
+    object-position: 54% center !important;
+  }
+
+  .monolith-section--object .monolith-section__image {
+    object-position: center center !important;
+  }
+
+  .monolith-section--set .monolith-section__image {
+    object-position: 52% center !important;
+  }
+
+  .monolith-section--detail .monolith-section__image {
+    object-position: center center !important;
+  }
+
+  .flow-scene--hero .flow-scene__image {
+    object-position: center center !important;
+  }
+
+  .flow-scene--set .flow-scene__image {
+    object-position: center 30% !important;
+  }
+
+  .flow-scene--detail .flow-scene__image {
+    object-position: center center !important;
+  }
+
+  .nox-hero__image,
+  .nox-story:nth-of-type(2) .nox-story__image {
+    object-position: 52% center !important;
+  }
+
+  .nox-story:nth-of-type(3) .nox-story__image,
+  .nox-story--final .nox-story__image {
+    object-position: center center !important;
+  }
+
+  .leviathan-scene--hero .leviathan-scene__image,
+  .leviathan-scene--detail .leviathan-scene__image {
+    object-position: center center !important;
+  }
+
+  .leviathan-scene--set .leviathan-scene__image {
+    object-position: 44% center !important;
+  }
+
+  .leviathan-scene--chair .leviathan-scene__image {
+    object-position: center center !important;
+  }
+
+  .tide-section--hero .tide-section__image {
+    object-position: 62% center !important;
+  }
+
+  .tide-section--top .tide-section__image {
+    object-position: center 55% !important;
+  }
+
+  .tide-section--angled .tide-section__image {
+    object-position: 40% 58% !important;
+  }
+
+  .tide-section--hero .tide-section__text,
+  .tide-section--angled .tide-section__text {
+    top: clamp(72px, 12svh, 112px) !important;
+    bottom: auto !important;
+  }
+
+  .tide-section--angled .tide-section__text {
+    top: clamp(13.5rem, 38svh, 20rem) !important;
+    text-shadow: 0 0 14px rgba(0, 0, 0, 0.78);
+  }
+
+  .core-scene--hero .core-scene__image,
+  .core-scene--second .core-scene__image {
+    object-position: 100% 62% !important;
+  }
+
+  .core-scene--final .core-scene__image {
+    object-position: 92% 64% !important;
   }
 }

@@ -1,7 +1,7 @@
 const root = document.documentElement;
 const cinematicScenes = Array.from(
   document.querySelectorAll(
-    ".experience--landing .scene, .monolith-section, .flow-scene, .nox-hero, .nox-story, .leviathan-scene, .tide-section",
+    ".experience--landing .scene, .monolith-section, .flow-scene, .nox-hero, .nox-story, .leviathan-scene, .tide-section, .core-scene",
   ),
 );
 const scenes = cinematicScenes.length ? cinematicScenes : Array.from(document.querySelectorAll("[data-scene]"));
@@ -30,6 +30,7 @@ document
       ".nox-story__text",
       ".leviathan-scene__content > *",
       ".tide-section__text > *",
+      ".core-scene__content > *",
     ].join(", "),
   )
   .forEach((element) => element.classList.add("reveal-text"));

@@ -45,6 +45,52 @@ body.menu-open main {
   filter: blur(3px) brightness(0.52);
 }
 
+body.page-transition-ready main {
+  opacity: 0;
+  filter: blur(4px);
+  transition:
+    opacity 440ms ease,
+    filter 440ms ease;
+}
+
+body.page-transition-ready.is-loaded main {
+  opacity: 1;
+  filter: blur(0);
+}
+
+body.page-transition-ready.is-loaded.menu-open main {
+  filter: blur(3px) brightness(0.52);
+}
+
+.opening-mark {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: grid;
+  place-items: center;
+  color: rgba(245, 240, 230, 0.62);
+  background: #030303;
+  font-family:
+    "Arial Narrow",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  opacity: 1;
+  text-transform: uppercase;
+  transition: opacity 380ms ease;
+}
+
+.opening-mark.is-leaving {
+  opacity: 0;
+}
+
+body.opening-mark-active {
+  overflow: hidden;
+}
+
 body::before {
   position: fixed;
   inset: 0;
@@ -1477,7 +1523,7 @@ img {
 }
 
 .core-scene--final .core-scene__image {
-  object-position: center 64%;
+  object-position: left center;
 }
 
 .core-scene__content {
@@ -1783,9 +1829,9 @@ img {
 
 .reveal-text {
   --reveal-delay: 0ms;
-  --reveal-duration: 900ms;
+  --reveal-duration: 560ms;
   --reveal-opacity: 1;
-  --reveal-y: 18px;
+  --reveal-y: 14px;
   opacity: 0;
   transform: translateY(var(--reveal-y));
   transition:
@@ -1831,7 +1877,7 @@ img {
 }
 
 .experience--landing .hero__caption {
-  --reveal-duration: 900ms;
+  --reveal-duration: 560ms;
   --reveal-opacity: 0.85;
 }
 
@@ -2105,26 +2151,36 @@ img {
   display: inline-block;
   width: fit-content;
   margin-top: clamp(1rem, 2.6svh, 1.8rem);
-  color: #e8e8e8;
+  padding: 0.72rem 0.92rem 0.68rem;
+  border: 1px solid rgba(245, 240, 230, 0.28);
+  color: rgba(245, 240, 230, 0.62);
   font-family:
     "Helvetica Neue",
     Arial,
     sans-serif;
   font-size: clamp(0.72rem, 0.8vw, 0.85rem);
   font-weight: 300;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   line-height: 1;
-  opacity: 0.44;
+  opacity: 0.62;
   text-transform: uppercase;
-  transition: opacity 420ms ease, transform 420ms var(--ecna-ease);
+  background: transparent;
+  transform: none;
+  transition:
+    border-color 300ms ease,
+    color 300ms ease,
+    opacity 300ms ease,
+    transform 300ms ease;
 }
 
 .collection-inquire:hover,
 .collection-inquire:focus-visible,
 .tide-inquire:hover,
 .tide-inquire:focus-visible {
-  opacity: 0.82;
-  transform: translateY(-2px);
+  border-color: rgba(245, 240, 230, 0.46);
+  color: rgba(245, 240, 230, 0.78);
+  opacity: 0.9;
+  transform: scale(1.01);
 }
 
 body:has(.experience--landing) .site-mark,
@@ -2189,6 +2245,7 @@ body:has(.flow-page) .collection-toggle {
 .collection-drawer::before {
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   content: "";
   opacity: 0.035;
@@ -2199,6 +2256,48 @@ body:has(.flow-page) .collection-toggle {
   mix-blend-mode: screen;
 }
 
+.collection-menu-preview {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 520ms ease;
+}
+
+.collection-menu-preview::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(7, 7, 7, 0.94), rgba(7, 7, 7, 0.74) 42%, rgba(7, 7, 7, 0.44)),
+    radial-gradient(ellipse at 76% 50%, transparent 0 24%, rgba(0, 0, 0, 0.54) 76%);
+}
+
+.collection-menu-preview.is-active {
+  opacity: 1;
+}
+
+.collection-menu-preview img {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 68%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.2;
+  filter: brightness(0.62) contrast(1.06) saturate(0.62);
+  transform: scale(1.015);
+  transition:
+    opacity 520ms ease,
+    transform 900ms var(--ecna-ease);
+}
+
+.collection-menu-preview.is-active img {
+  transform: scale(1);
+}
+
 .collection-overlay.is-open .collection-drawer {
   transform: translateX(0);
 }
@@ -2207,7 +2306,7 @@ body:has(.flow-page) .collection-toggle {
   position: absolute;
   top: 28px;
   right: 32px;
-  z-index: 2;
+  z-index: 3;
   padding: 0;
   border: 0;
   outline: 0;
@@ -2230,7 +2329,7 @@ body:has(.flow-page) .collection-toggle {
 
 .collection-nav {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -2537,6 +2636,154 @@ body.menu-open .site-mark {
   line-height: 1.35;
   letter-spacing: 0.1em;
   opacity: 0.28;
+}
+
+.collections-index {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 78% 18%, rgba(245, 240, 230, 0.026), transparent 34rem),
+    linear-gradient(180deg, #070707 0%, #0A0A0A 52%, #050505 100%);
+  color: rgba(245, 240, 230, 0.62);
+}
+
+.collections-index::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(ellipse at 70% 48%, transparent 0 36%, rgba(0, 0, 0, 0.48) 78%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.62));
+}
+
+.collections-index__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(6rem, 14svh, 9rem) clamp(1.4rem, 7vw, 8rem);
+}
+
+.collections-index__label {
+  max-width: 32rem;
+  margin: 0 0 clamp(2.4rem, 6svh, 4.8rem);
+  color: rgba(245, 240, 230, 0.38);
+  font-size: clamp(0.68rem, 0.78vw, 0.82rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.collections-index__list {
+  display: flex;
+  width: min(100%, 44rem);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.8rem, 2.1svh, 1.25rem);
+}
+
+.collections-index__list a {
+  color: rgba(245, 240, 230, 0.54);
+  font-size: clamp(1.8rem, 5vw, 5.1rem);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    color 420ms ease,
+    opacity 420ms ease,
+    transform 520ms var(--ecna-ease);
+}
+
+.collections-index__list:hover a {
+  opacity: 0.36;
+}
+
+.collections-index__list a:hover,
+.collections-index__list a:focus-visible {
+  color: rgba(245, 240, 230, 0.72);
+  opacity: 1;
+  transform: translateX(0.45rem);
+}
+
+.collections-index__preview {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 620ms ease;
+}
+
+.collections-index__preview.is-active {
+  opacity: 1;
+}
+
+.collections-index__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.22;
+  filter: brightness(0.66) contrast(1.04) saturate(0.58);
+  transform: scale(1.015);
+  transition:
+    opacity 620ms ease,
+    transform 1100ms var(--ecna-ease);
+}
+
+.collections-index__preview.is-active img {
+  transform: scale(1);
+}
+
+.collections-index__label.reveal-text {
+  --reveal-opacity: 0.38;
+  --reveal-duration: 560ms;
+  --reveal-y: 12px;
+}
+
+.collections-index__list a.reveal-text {
+  --reveal-opacity: 0.54;
+  --reveal-duration: 560ms;
+  --reveal-y: 12px;
+}
+
+.experience--landing .scene:not(.is-visible) .hero__image,
+.experience--landing .scene--monolith-cave:not(.is-visible) img,
+.experience--landing .scene--monolith-transition:not(.is-visible) .monolith-transition__image,
+.experience--landing .scene--portal:not(.is-visible) .portal__media img,
+.monolith-section:not(.is-visible) .monolith-section__image,
+.flow-scene:not(.is-visible) .flow-scene__image,
+.nox-hero:not(.is-visible) .nox-hero__image,
+.nox-story:not(.is-visible) .nox-story__image,
+.leviathan-scene:not(.is-visible) .leviathan-scene__image,
+.tide-section:not(.is-visible) .tide-section__image,
+.core-scene:not(.is-visible) .core-scene__image {
+  opacity: 0.92;
+  filter: brightness(0.88);
+}
+
+.experience--landing .hero__image,
+.experience--landing .scene--monolith-cave img,
+.experience--landing .monolith-transition__image,
+.experience--landing .portal__media img,
+.monolith-section__image,
+.flow-scene__image,
+.nox-hero__image,
+.nox-story__image,
+.leviathan-scene__image,
+.tide-section__image,
+.core-scene__image {
+  transition:
+    opacity 820ms ease-out,
+    filter 820ms ease-out,
+    transform 900ms var(--ecna-ease);
 }
 
 .collections-page {
@@ -3699,6 +3946,39 @@ body.menu-open .site-mark {
     word-break: break-word;
   }
 
+  .collection-menu-preview {
+    display: none;
+  }
+
+  .collections-index__inner {
+    padding: clamp(5.8rem, 13svh, 7rem) 1.4rem clamp(3.5rem, 9svh, 5rem);
+  }
+
+  .collections-index__label {
+    margin-bottom: clamp(2.5rem, 7svh, 4rem);
+    font-size: clamp(0.68rem, 3vw, 0.8rem);
+  }
+
+  .collections-index__list {
+    gap: clamp(1rem, 3svh, 1.5rem);
+  }
+
+  .collections-index__list a {
+    max-width: 100%;
+    font-size: clamp(1.5rem, 9vw, 3.1rem);
+    line-height: 1;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .collections-index__list:hover a {
+    opacity: 1;
+  }
+
+  .collections-index__preview {
+    display: none;
+  }
+
   .experience--landing .hero__image,
   .experience--landing .set__image,
   .experience--landing .threshold__image {
@@ -4213,6 +4493,243 @@ body.menu-open .site-mark {
   }
 
   .core-scene--final .core-scene__image {
-    object-position: 92% 64% !important;
+    object-position: 28% center !important;
+  }
+}
+
+/* Strict ECNA typography and inquiry refinement */
+:root {
+  --ecna-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ecna-text: rgba(245, 240, 230, 0.56);
+  --ecna-text-strong: rgba(245, 240, 230, 0.66);
+  --ecna-text-quiet: rgba(245, 240, 230, 0.44);
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: var(--ecna-font);
+  font-weight: 300;
+}
+
+.site-mark,
+.collection-toggle,
+.collection-close,
+.collection-nav > a,
+.collection-nav__trigger,
+.collection-subnav a,
+.hero__caption,
+.scene__body,
+.scene__note,
+.monolith-transition__body,
+.monolith-transition__note,
+.portal__content span,
+.portal__content small,
+.monolith-section__label,
+.monolith-section__copy h1,
+.monolith-section__copy h2,
+.flow-scene__label,
+.flow-scene__copy h1,
+.flow-scene__copy h2,
+.nox-hero__content h1,
+.nox-hero__content p,
+.nox-story__text,
+.leviathan-scene__content h1,
+.leviathan-scene__content h2,
+.leviathan-scene__content p,
+.core-scene__content h1,
+.core-scene__content p,
+.tide-section__text h1,
+.tide-section__text p,
+.tide-section__text span,
+.collection-inquire,
+.tide-inquire,
+.collection-final-note,
+.about-kicker,
+.about-copy p,
+.connect-kicker,
+.connect-description,
+.connect-scope,
+.connect-form button,
+.connect-form__note,
+.collections-index__label,
+.collections-index__list a {
+  color: var(--ecna-text);
+  font-family: var(--ecna-font);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero__caption,
+.scene__body,
+.scene__note,
+.monolith-transition__body,
+.monolith-transition__note,
+.monolith-section__label,
+.flow-scene__label,
+.nox-hero__content p,
+.leviathan-scene__content p,
+.core-scene__content p,
+.tide-section__text p,
+.collection-final-note,
+.about-copy p,
+.connect-description,
+.connect-scope,
+.connect-form__note {
+  font-size: clamp(10px, 0.9vw, 14px);
+  line-height: 1.45;
+}
+
+.monolith-section__copy h1,
+.monolith-section__copy h2,
+.flow-scene__copy h1,
+.flow-scene__copy h2,
+.nox-hero__content h1,
+.nox-story__text,
+.leviathan-scene__content h1,
+.leviathan-scene__content h2,
+.core-scene__content h1,
+.tide-section__text h1,
+.portal__content span,
+.collections-index__list a {
+  font-size: clamp(15px, 1.4vw, 22px);
+  line-height: 1.22;
+}
+
+.collection-nav > a,
+.collection-nav__trigger,
+.collection-subnav a {
+  font-size: clamp(13px, 1.2vw, 18px);
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+}
+
+.site-mark,
+.collection-toggle,
+.collection-close,
+.collections-index__label,
+.about-kicker,
+.connect-kicker,
+.monolith-section__label,
+.flow-scene__label {
+  letter-spacing: 0.08em;
+}
+
+.tide-section__text h1,
+.tide-section__text p,
+.tide-section__text span,
+.tide-inquire {
+  color: var(--ecna-text-strong);
+}
+
+.leviathan-scene__content h1,
+.leviathan-scene__content h2,
+.leviathan-scene__content p {
+  color: rgba(245, 240, 230, 0.46);
+  font-size: clamp(10px, 0.9vw, 14px);
+}
+
+.nox-hero__content h1,
+.nox-hero__content p,
+.nox-story__text {
+  color: rgba(245, 240, 230, 0.5);
+}
+
+.monolith-section__copy h1,
+.monolith-section__copy h2,
+.flow-scene__copy h1,
+.flow-scene__copy h2,
+.core-scene__content h1,
+.core-scene__content p {
+  color: var(--ecna-text);
+}
+
+.collection-inquire,
+.tide-inquire,
+.connect-form button {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.72rem 0.92rem 0.68rem;
+  border: 1px solid rgba(245, 240, 230, 0.28);
+  color: rgba(245, 240, 230, 0.62);
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  background: transparent;
+  opacity: 0.66;
+  transition:
+    border-color 300ms ease,
+    color 300ms ease,
+    opacity 300ms ease;
+}
+
+.collection-inquire:hover,
+.collection-inquire:focus-visible,
+.tide-inquire:hover,
+.tide-inquire:focus-visible,
+.connect-form button:hover,
+.connect-form button:focus-visible {
+  border-color: rgba(245, 240, 230, 0.46);
+  color: rgba(245, 240, 230, 0.78);
+  opacity: 0.9;
+  transform: none;
+}
+
+.connect-form input,
+.connect-form textarea {
+  color: rgba(245, 240, 230, 0.62);
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.connect-form input::placeholder,
+.connect-form textarea::placeholder {
+  color: rgba(245, 240, 230, 0.38);
+  text-transform: none;
+}
+
+@media (max-width: 768px) {
+  .hero__caption,
+  .scene__body,
+  .scene__note,
+  .monolith-transition__body,
+  .monolith-transition__note,
+  .monolith-section__label,
+  .flow-scene__label,
+  .nox-hero__content p,
+  .leviathan-scene__content p,
+  .core-scene__content p,
+  .tide-section__text p,
+  .collection-final-note,
+  .about-copy p,
+  .connect-description,
+  .connect-scope,
+  .connect-form__note {
+    font-size: clamp(10px, 3vw, 13px);
+  }
+
+  .monolith-section__copy h1,
+  .monolith-section__copy h2,
+  .flow-scene__copy h1,
+  .flow-scene__copy h2,
+  .nox-hero__content h1,
+  .nox-story__text,
+  .leviathan-scene__content h1,
+  .leviathan-scene__content h2,
+  .core-scene__content h1,
+  .tide-section__text h1,
+  .portal__content span,
+  .collections-index__list a {
+    font-size: clamp(13px, 4vw, 18px);
+  }
+
+  .collection-nav > a,
+  .collection-nav__trigger,
+  .collection-subnav a {
+    font-size: clamp(13px, 3.5vw, 18px);
   }
 }

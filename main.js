@@ -15,6 +15,75 @@ const portal = document.querySelector(".scene--portal");
 const customCursor = document.querySelector(".custom-cursor");
 const cursorDot = customCursor?.querySelector(".custom-cursor__dot");
 const cursorRing = customCursor?.querySelector(".custom-cursor__ring");
+const scriptRoot = new URL(".", document.currentScript?.src || window.location.href);
+const canUseHoverPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const isHomepage = Boolean(document.querySelector(".experience--landing"));
+const collectionPreviewSources = {
+  monolith: "assets/ecna-monolith-reference.jpeg",
+  tide: "assets/ecna-tide-hero.png",
+  core: "assets/ecna-core-hero.jpeg",
+  leviathan: "assets/ecna-leviathan-main.png",
+  flow: "assets/ecna-flow-final-object.png",
+  nox: "assets/ecna-nox-scene.png",
+};
+
+document.body.classList.add("page-transition-ready");
+
+const shouldShowOpeningMark = () => {
+  if (!isHomepage) return false;
+
+  try {
+    if (!window.sessionStorage || window.sessionStorage.getItem("ecna-opening-mark-seen")) return false;
+    window.sessionStorage.setItem("ecna-opening-mark-seen", "true");
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const showOpeningMark = () => {
+  const mark = document.createElement("div");
+  mark.className = "opening-mark";
+  mark.setAttribute("aria-hidden", "true");
+  mark.textContent = "ECNA";
+  document.body.classList.add("opening-mark-active");
+  document.body.append(mark);
+
+  window.setTimeout(() => {
+    mark.classList.add("is-leaving");
+  }, 720);
+
+  window.setTimeout(() => {
+    mark.remove();
+    document.body.classList.remove("opening-mark-active");
+    document.body.classList.add("is-loaded");
+  }, 1020);
+};
+
+if (shouldShowOpeningMark()) {
+  showOpeningMark();
+} else {
+  window.requestAnimationFrame(() => {
+    document.body.classList.add("is-loaded");
+  });
+}
+
+const getCollectionSlug = (href) => {
+  if (!href) return "";
+  const parts = new URL(href, window.location.href).pathname
+    .split("/")
+    .filter(Boolean)
+    .map((part) => part.replace(/\.html$/, "").toLowerCase());
+
+  return parts.find((part) => collectionPreviewSources[part]) || "";
+};
+
+const getPreviewSource = (link) => {
+  if (link.dataset.preview) return new URL(link.dataset.preview, window.location.href).href;
+  const slug = getCollectionSlug(link.getAttribute("href"));
+  const source = slug ? collectionPreviewSources[slug] : "";
+  return source ? new URL(source, scriptRoot).href : "";
+};
 
 document
   .querySelectorAll(
@@ -31,6 +100,8 @@ document
       ".leviathan-scene__content > *",
       ".tide-section__text > *",
       ".core-scene__content > *",
+      ".collections-index__label",
+      ".collections-index__list a",
     ].join(", "),
   )
   .forEach((element) => element.classList.add("reveal-text"));
@@ -158,6 +229,70 @@ if (customCursor && cursorDot && cursorRing && supportsCustomCursor) {
   renderCursor();
 }
 
+const setupCollectionIndexPreview = () => {
+  const indexPage = document.querySelector(".collections-index");
+  const preview = indexPage?.querySelector(".collections-index__preview");
+  const previewImage = preview?.querySelector("img");
+  const links = Array.from(indexPage?.querySelectorAll(".collections-index__list a") || []);
+
+  if (!indexPage || !preview || !previewImage || !links.length || !canUseHoverPreview) return;
+
+  const showPreview = (link) => {
+    const source = getPreviewSource(link);
+    if (!source) return;
+    previewImage.src = source;
+    preview.classList.add("is-active");
+    indexPage.classList.add("has-preview");
+  };
+
+  const hidePreview = () => {
+    preview.classList.remove("is-active");
+    indexPage.classList.remove("has-preview");
+  };
+
+  links.forEach((link) => {
+    link.addEventListener("pointerenter", () => showPreview(link));
+    link.addEventListener("focus", () => showPreview(link));
+    link.addEventListener("pointerleave", hidePreview);
+    link.addEventListener("blur", hidePreview);
+  });
+};
+
+const setupMenuPreview = () => {
+  const drawer = collectionOverlay?.querySelector(".collection-drawer");
+  const links = Array.from(collectionOverlay?.querySelectorAll(".collection-subnav a") || []);
+
+  if (!drawer || !links.length || !canUseHoverPreview) return;
+
+  const preview = document.createElement("div");
+  preview.className = "collection-menu-preview";
+  preview.setAttribute("aria-hidden", "true");
+
+  const previewImage = document.createElement("img");
+  previewImage.alt = "";
+  preview.append(previewImage);
+  drawer.append(preview);
+
+  const showPreview = (link) => {
+    const source = getPreviewSource(link);
+    if (!source) return;
+    previewImage.src = source;
+    preview.classList.add("is-active");
+  };
+
+  const hidePreview = () => preview.classList.remove("is-active");
+
+  links.forEach((link) => {
+    link.addEventListener("pointerenter", () => showPreview(link));
+    link.addEventListener("focus", () => showPreview(link));
+    link.addEventListener("pointerleave", hidePreview);
+    link.addEventListener("blur", hidePreview);
+  });
+};
+
+setupCollectionIndexPreview();
+setupMenuPreview();
+
 if (collectionToggle && collectionOverlay) {
   let lastFocusedElement = null;
 
@@ -178,6 +313,7 @@ if (collectionToggle && collectionOverlay) {
         getDrawerFocusable()[0]?.focus({ preventScroll: true });
       }, 160);
     } else {
+      collectionOverlay.querySelector(".collection-menu-preview")?.classList.remove("is-active");
       collectionNavTriggers.forEach((trigger) => {
         const submenu = trigger.getAttribute("aria-controls")
           ? document.getElementById(trigger.getAttribute("aria-controls"))

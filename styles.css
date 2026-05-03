@@ -3793,3 +3793,44 @@ body.menu-open .site-mark {
     object-position: center center;
   }
 }
+
+@media (max-width: 768px) {
+  .scene--monolith-cave,
+  .scene--monolith-transition,
+  .scene--portal,
+  .monolith-section,
+  .flow-scene,
+  .nox-hero,
+  .nox-story,
+  .leviathan-scene,
+  .tide-section,
+  .product-hero {
+    height: auto !important;
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+    max-height: none !important;
+    background: #0a0a0a;
+  }
+
+  .scene--monolith-cave img,
+  .monolith-transition__image,
+  .portal__media img,
+  .monolith-section__image,
+  .flow-scene__image,
+  .nox-hero__image,
+  .nox-story__image,
+  .leviathan-scene__image,
+  .tide-section__image,
+  .product-hero__image {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    scale: none !important;
+    translate: none !important;
+    background: #0a0a0a;
+  }
+}

@@ -12,6 +12,7 @@ const collectionClose = document.querySelector(".collection-close");
 const collectionNavTriggers = Array.from(document.querySelectorAll(".collection-nav__trigger"));
 const flowHero = document.querySelector(".flow-scene--hero");
 const portal = document.querySelector(".scene--portal");
+const connectForm = document.querySelector(".connect-form");
 const customCursor = document.querySelector(".custom-cursor");
 const cursorDot = customCursor?.querySelector(".custom-cursor__dot");
 const cursorRing = customCursor?.querySelector(".custom-cursor__ring");
@@ -395,5 +396,26 @@ if (portal) {
     window.setTimeout(() => {
       window.location.href = portal.href;
     }, 400);
+  });
+}
+
+if (connectForm) {
+  const status = connectForm.querySelector(".connect-form__status");
+
+  connectForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!status) return;
+
+    try {
+      status.hidden = false;
+      status.classList.remove("is-visible", "is-error");
+      status.innerHTML = "THANK YOU.<br>WE WILL GET BACK TO YOU.<span>EACH INQUIRY IS REVIEWED INDIVIDUALLY.</span>";
+      window.requestAnimationFrame(() => status.classList.add("is-visible"));
+    } catch {
+      status.hidden = false;
+      status.textContent = "SOMETHING WENT WRONG. PLEASE TRY AGAIN.";
+      status.classList.add("is-visible", "is-error");
+    }
   });
 }

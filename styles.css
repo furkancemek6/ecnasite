@@ -2638,6 +2638,33 @@ body.menu-open .site-mark {
   opacity: 0.28;
 }
 
+.connect-form__status {
+  margin: 0;
+  max-width: 24rem;
+  color: rgba(245, 240, 230, 0.62);
+  font-family:
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: clamp(0.72rem, 0.82vw, 0.84rem);
+  font-weight: 300;
+  line-height: 1.55;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.connect-form__status.is-visible {
+  opacity: 0.78;
+}
+
+.connect-form__status span {
+  display: block;
+  margin-top: 0.45rem;
+  opacity: 0.62;
+}
+
 .collections-index {
   position: relative;
   min-height: 100svh;
@@ -4553,6 +4580,7 @@ textarea {
 .connect-scope,
 .connect-form button,
 .connect-form__note,
+.connect-form__status,
 .collections-index__label,
 .collections-index__list a {
   color: var(--ecna-text);
@@ -4686,6 +4714,11 @@ textarea {
   text-transform: none;
 }
 
+.connect-form__status,
+.connect-form__status.is-error {
+  color: rgba(245, 240, 230, 0.62);
+}
+
 .connect-form input::placeholder,
 .connect-form textarea::placeholder {
   color: rgba(245, 240, 230, 0.38);
@@ -4732,4 +4765,41 @@ textarea {
   .collection-subnav a {
     font-size: clamp(13px, 3.5vw, 18px);
   }
+}
+
+/* TIDE section stacking containment */
+.tide-page {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.tide-section {
+  position: relative !important;
+  display: block;
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  z-index: auto;
+}
+
+.tide-section__image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100svh;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  transform: none;
+}
+
+.tide-section__text {
+  z-index: 2;
 }

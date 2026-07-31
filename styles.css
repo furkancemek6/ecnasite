@@ -798,13 +798,15 @@ img {
 .monolith-transition__note {
   margin: 0;
   max-width: 500px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.65;
-  letter-spacing: 0.035em;
-  color: #E8E2D6;
+  color: rgba(245, 240, 230, 0.56);
+  font-family: var(--ecna-font);
+  font-size: clamp(10px, 0.9vw, 14px);
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: 0.06em;
   opacity: 0.45;
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
   transform: translateY(8px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
@@ -963,19 +965,23 @@ img {
 }
 
 .portal__content span {
-  font-size: clamp(2.8rem, 7vw, 7rem);
-  font-weight: 500;
-  line-height: 0.9;
-  letter-spacing: 0.08em;
+  color: rgba(245, 240, 230, 0.56);
+  font-family: var(--ecna-font);
+  font-size: clamp(15px, 1.4vw, 22px);
+  font-weight: 300;
+  line-height: 1.22;
+  letter-spacing: 0.06em;
   opacity: 0.66;
+  text-transform: uppercase;
   transition: opacity 0.8s ease;
 }
 
 .portal__content small {
-  color: #E8E2D6;
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  color: rgba(245, 240, 230, 0.44);
+  font-family: var(--ecna-font);
+  font-size: clamp(10px, 0.9vw, 14px);
+  font-weight: 300;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   opacity: 0.5;
   transition: opacity 0.8s ease, color 0.8s ease;
@@ -1858,13 +1864,18 @@ img {
 .leviathan-scene__content h1.reveal-text,
 .leviathan-scene__content h2.reveal-text,
 .leviathan-scene__content--small p.reveal-text,
-.core-scene__content h1.reveal-text {
+.core-scene__content h1.reveal-text,
+.core-scene__content h2.reveal-text,
+.cairn-scene__content h2.reveal-text,
+.talus-scene__content h2.reveal-text {
   --reveal-opacity: 0.54;
 }
 
 .nox-hero__content p.reveal-text,
 .leviathan-scene__content p.reveal-text,
 .core-scene__content p.reveal-text,
+.cairn-scene__content p.reveal-text,
+.talus-scene__content p.reveal-text,
 .collection-final-note.reveal-text,
 .collection-inquire.reveal-text {
   --reveal-opacity: 0.34;
@@ -3254,6 +3265,7 @@ body.menu-open .site-mark {
     opacity 760ms cubic-bezier(0.22, 1, 0.36, 1) 200ms,
     transform 760ms cubic-bezier(0.22, 1, 0.36, 1) 200ms,
     clip-path 760ms cubic-bezier(0.22, 1, 0.36, 1) 200ms;
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.52);
 }
 
 .monolith-section.is-visible .monolith-section__copy {
@@ -3264,31 +3276,27 @@ body.menu-open .site-mark {
 
 .monolith-section__label {
   margin: 0 0 0.8rem;
-  color: #E8E2D6;
-  font-family:
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-  font-size: clamp(0.6875rem, 0.74vw, 0.8125rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0.18em;
+  color: rgba(245, 240, 230, 0.44);
+  font-family: var(--ecna-font);
+  font-size: clamp(10px, 0.9vw, 14px);
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
   opacity: 0.28;
+  text-transform: uppercase;
 }
 
 .monolith-section__copy h1,
 .monolith-section__copy h2 {
   margin: 0;
-  color: #E8E2D6;
-  font-family:
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-  font-size: clamp(1.45rem, 3.5vw, 4.4rem);
+  color: rgba(245, 240, 230, 0.62);
+  font-family: var(--ecna-font);
+  font-size: clamp(15px, 1.4vw, 22px);
   font-weight: 300;
-  line-height: 1.04;
-  letter-spacing: 0.04em;
+  line-height: 1.22;
+  letter-spacing: 0.06em;
   opacity: 0.54;
+  text-transform: uppercase;
   transition: opacity 500ms ease;
 }
 
@@ -4805,19 +4813,67 @@ textarea {
 }
 
 @media (min-width: 769px) {
+  .core-scene--hero::after,
+  .core-scene--second::after,
+  .core-scene--final::after {
+    position: absolute;
+    inset: -4%;
+    z-index: 0;
+    pointer-events: none;
+    content: "";
+    background-position: 68% 72%;
+    background-size: cover;
+    filter: blur(22px);
+    opacity: 0.38;
+    transform: scale(1.04);
+  }
+
+  .core-scene--hero::after {
+    background-image: url("assets/ecna-core-hero.jpeg");
+  }
+
+  .core-scene--second::after {
+    background-image: url("assets/ecna-core-second.jpeg");
+  }
+
+  .core-scene--final::after {
+    background-image: url("assets/core-final-dark-left.png");
+  }
+
+  .core-scene--hero::before,
+  .core-scene--second::before,
+  .core-scene--final::before {
+    z-index: 2;
+  }
+
   .core-scene--hero .core-scene__image {
-    object-fit: cover;
-    object-position: 68% 72%;
+    z-index: 1;
+    object-fit: contain;
+    object-position: center center;
+    transform: scale(1.045) !important;
+    transform-origin: center center;
+  }
+
+  .core-scene--hero .core-scene__content,
+  .core-scene--second .core-scene__content,
+  .core-scene--final .core-scene__content {
+    z-index: 3;
   }
 
   .core-scene--second .core-scene__image {
-    object-fit: cover;
-    object-position: 57% 76%;
+    z-index: 1;
+    object-fit: contain;
+    object-position: center center;
+    transform: scale(1.045) !important;
+    transform-origin: center center;
   }
 
   .core-scene--final .core-scene__image {
-    object-fit: cover;
-    object-position: 28% 82%;
+    z-index: 1;
+    object-fit: contain;
+    object-position: center center;
+    transform: scale(1.045) !important;
+    transform-origin: center center;
   }
 
   .tide-section--hero .tide-section__image {
@@ -4828,5 +4884,145 @@ textarea {
   .tide-section--top .tide-section__image {
     object-fit: cover;
     object-position: center 78%;
+  }
+}
+
+/* CAIRN and TALUS collection pages */
+.cairn-page,
+.talus-page {
+  min-height: 100vh;
+  background: #050505;
+  color: rgba(245, 240, 230, 0.62);
+}
+
+.cairn-scene,
+.talus-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.cairn-scene__image,
+.talus-scene__image {
+  width: 100%;
+  height: 100%;
+  min-height: 100svh;
+  object-fit: cover;
+  transform: none !important;
+}
+
+.cairn-scene__content,
+.talus-scene__content {
+  max-width: min(31rem, calc(100vw - 40px));
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.52);
+}
+
+.cairn-scene__content h2,
+.talus-scene__content h2 {
+  margin: 0;
+  color: rgba(245, 240, 230, 0.62);
+  font-family: var(--ecna-font);
+  font-size: clamp(15px, 1.4vw, 22px);
+  font-weight: 300;
+  line-height: 1.22;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cairn-scene__content p + p,
+.talus-scene__content p + p {
+  margin-top: 0.45rem;
+}
+
+.cairn-scene__content .collection-inquire,
+.talus-scene__content .collection-inquire {
+  margin-top: 1rem;
+}
+
+@media (min-width: 769px) {
+  .cairn-scene--hero .cairn-scene__image {
+    object-position: 50% 62%;
+  }
+
+  .cairn-scene--second .cairn-scene__image {
+    object-position: 50% 64%;
+  }
+
+  .cairn-scene--final .cairn-scene__image {
+    object-position: 50% 68%;
+  }
+
+  .talus-scene--hero .talus-scene__image {
+    object-position: 50% 84%;
+  }
+
+  .talus-scene--second .talus-scene__image {
+    object-position: 50% 78%;
+  }
+
+  .talus-scene--final .talus-scene__image {
+    object-position: 50% 64%;
+  }
+
+  .cairn-scene--hero .cairn-scene__content,
+  .cairn-scene--second .cairn-scene__content {
+    top: clamp(5.5rem, 14svh, 8rem) !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: clamp(20px, 6vw, 96px) !important;
+  }
+
+  .cairn-scene--final .cairn-scene__content,
+  .talus-scene--hero .talus-scene__content,
+  .talus-scene--second .talus-scene__content,
+  .talus-scene--final .talus-scene__content {
+    top: clamp(5.5rem, 14svh, 8rem) !important;
+    right: clamp(20px, 6vw, 96px) !important;
+    bottom: auto !important;
+    left: auto !important;
+  }
+
+  .talus-scene--final .talus-scene__content {
+    right: auto !important;
+    left: clamp(20px, 6vw, 96px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cairn-scene--hero .cairn-scene__image {
+    object-position: 50% 58%;
+  }
+
+  .cairn-scene--second .cairn-scene__image {
+    object-position: 50% 60%;
+  }
+
+  .cairn-scene--final .cairn-scene__image {
+    object-position: 48% 58%;
+  }
+
+  .talus-scene--hero .talus-scene__image {
+    object-position: 50% 58%;
+  }
+
+  .talus-scene--second .talus-scene__image {
+    object-position: 50% 58%;
+  }
+
+  .talus-scene--final .talus-scene__image {
+    object-position: 50% 54%;
+  }
+
+  .cairn-scene__content,
+  .talus-scene__content {
+    left: 24px !important;
+    right: 24px !important;
+    top: 84px !important;
+    bottom: auto !important;
+    max-width: calc(100vw - 48px) !important;
   }
 }

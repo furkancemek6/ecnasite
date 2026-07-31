@@ -1597,19 +1597,6 @@ img {
   opacity: 0.68;
 }
 
-@media (min-width: 769px) {
-  .nox-story--final .nox-story__image,
-  .leviathan-scene--detail .leviathan-scene__image,
-  .leviathan-scene--chair .leviathan-scene__image,
-  .tide-section--top .tide-section__image,
-  .core-scene--hero .core-scene__image,
-  .core-scene--second .core-scene__image,
-  .core-scene--final .core-scene__image {
-    object-fit: contain;
-    object-position: center center;
-  }
-}
-
 .monolith-statement__body p {
   margin: 0;
 }
@@ -4815,4 +4802,26 @@ textarea {
 
 .tide-section__text {
   z-index: 2;
+}
+
+@media (min-width: 769px) {
+  .core-scene--hero .core-scene__image {
+    object-fit: cover;
+    object-position: center 78%;
+  }
+
+  .core-scene--second .core-scene__image {
+    object-fit: cover;
+    object-position: center 78%;
+  }
+
+  .core-scene--final .core-scene__image {
+    object-fit: cover;
+    object-position: center 70%;
+  }
+
+  .tide-section--hero .tide-section__image {
+    object-fit: cover;
+    object-position: center 70%;
+  }
 }

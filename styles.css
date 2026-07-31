@@ -4807,21 +4807,26 @@ textarea {
 @media (min-width: 769px) {
   .core-scene--hero .core-scene__image {
     object-fit: cover;
-    object-position: center 78%;
+    object-position: 68% 72%;
   }
 
   .core-scene--second .core-scene__image {
     object-fit: cover;
-    object-position: center 78%;
+    object-position: 57% 76%;
   }
 
   .core-scene--final .core-scene__image {
     object-fit: cover;
-    object-position: center 70%;
+    object-position: 28% 82%;
   }
 
   .tide-section--hero .tide-section__image {
     object-fit: cover;
-    object-position: center 70%;
+    object-position: center 92%;
+  }
+
+  .tide-section--top .tide-section__image {
+    object-fit: cover;
+    object-position: center 78%;
   }
 }

@@ -1,7 +1,7 @@
 const root = document.documentElement;
 const cinematicScenes = Array.from(
   document.querySelectorAll(
-    ".experience--landing .scene, .monolith-section, .flow-scene, .nox-hero, .nox-story, .leviathan-scene, .tide-section, .core-scene, .cairn-scene, .talus-scene",
+    ".experience--landing .scene, .monolith-section, .flow-scene, .nox-hero, .nox-story, .leviathan-scene, .tide-section, .core-scene, .cairn-scene, .talus-scene, .spar-scene",
   ),
 );
 const scenes = cinematicScenes.length ? cinematicScenes : Array.from(document.querySelectorAll("[data-scene]"));
@@ -25,6 +25,7 @@ const collectionPreviewSources = {
   core: "assets/ecna-core-hero.jpeg",
   cairn: "assets/CAIRN HERO.jpeg",
   talus: "assets/talus hero.jpeg",
+  spar: "assets/spar1.png",
   leviathan: "assets/ecna-leviathan-main.png",
   flow: "assets/ecna-flow-final-object.png",
   nox: "assets/ecna-nox-scene.png",
@@ -105,6 +106,7 @@ document
       ".core-scene__content > *",
       ".cairn-scene__content > *",
       ".talus-scene__content > *",
+      ".spar-scene__content > *",
       ".collections-index__label",
       ".collections-index__list a",
     ].join(", "),

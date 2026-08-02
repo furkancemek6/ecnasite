@@ -4889,14 +4889,16 @@ textarea {
 
 /* CAIRN and TALUS collection pages */
 .cairn-page,
-.talus-page {
+.talus-page,
+.spar-page {
   min-height: 100vh;
   background: #050505;
   color: rgba(245, 240, 230, 0.62);
 }
 
 .cairn-scene,
-.talus-scene {
+.talus-scene,
+.spar-scene {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -4907,7 +4909,8 @@ textarea {
 }
 
 .cairn-scene__image,
-.talus-scene__image {
+.talus-scene__image,
+.spar-scene__image {
   width: 100%;
   height: 100%;
   min-height: 100svh;
@@ -4916,13 +4919,15 @@ textarea {
 }
 
 .cairn-scene__content,
-.talus-scene__content {
+.talus-scene__content,
+.spar-scene__content {
   max-width: min(31rem, calc(100vw - 40px));
   text-shadow: 0 0 14px rgba(0, 0, 0, 0.52);
 }
 
 .cairn-scene__content h2,
-.talus-scene__content h2 {
+.talus-scene__content h2,
+.spar-scene__content h2 {
   margin: 0;
   color: rgba(245, 240, 230, 0.62);
   font-family: var(--ecna-font);
@@ -4934,12 +4939,14 @@ textarea {
 }
 
 .cairn-scene__content p + p,
-.talus-scene__content p + p {
+.talus-scene__content p + p,
+.spar-scene__content p + p {
   margin-top: 0.45rem;
 }
 
 .cairn-scene__content .collection-inquire,
-.talus-scene__content .collection-inquire {
+.talus-scene__content .collection-inquire,
+.spar-scene__content .collection-inquire {
   margin-top: 1rem;
 }
 
@@ -4968,6 +4975,18 @@ textarea {
     object-position: 50% 64%;
   }
 
+  .spar-scene--hero .spar-scene__image {
+    object-position: 50% 56%;
+  }
+
+  .spar-scene--second .spar-scene__image {
+    object-position: 50% 58%;
+  }
+
+  .spar-scene--final .spar-scene__image {
+    object-position: 50% 50%;
+  }
+
   .cairn-scene--hero .cairn-scene__content,
   .cairn-scene--second .cairn-scene__content {
     top: clamp(5.5rem, 14svh, 8rem) !important;
@@ -4988,6 +5007,15 @@ textarea {
 
   .talus-scene--final .talus-scene__content {
     right: auto !important;
+    left: clamp(20px, 6vw, 96px) !important;
+  }
+
+  .spar-scene--hero .spar-scene__content,
+  .spar-scene--second .spar-scene__content,
+  .spar-scene--final .spar-scene__content {
+    top: auto !important;
+    right: auto !important;
+    bottom: clamp(3rem, 9svh, 6rem) !important;
     left: clamp(20px, 6vw, 96px) !important;
   }
 }
@@ -5017,12 +5045,30 @@ textarea {
     object-position: 50% 54%;
   }
 
+  .spar-scene--hero .spar-scene__image {
+    object-position: 50% 56%;
+  }
+
+  .spar-scene--second .spar-scene__image {
+    object-position: 50% 58%;
+  }
+
+  .spar-scene--final .spar-scene__image {
+    object-position: 50% 50%;
+  }
+
   .cairn-scene__content,
-  .talus-scene__content {
+  .talus-scene__content,
+  .spar-scene__content {
     left: 24px !important;
     right: 24px !important;
     top: 84px !important;
     bottom: auto !important;
     max-width: calc(100vw - 48px) !important;
+  }
+
+  .spar-scene--hero .spar-scene__content,
+  .spar-scene--second .spar-scene__content {
+    top: clamp(132px, 18svh, 164px) !important;
   }
 }

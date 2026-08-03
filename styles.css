@@ -4813,67 +4813,22 @@ textarea {
 }
 
 @media (min-width: 769px) {
-  .core-scene--hero::after,
-  .core-scene--second::after,
-  .core-scene--final::after {
-    position: absolute;
-    inset: -4%;
-    z-index: 0;
-    pointer-events: none;
-    content: "";
-    background-position: 68% 72%;
-    background-size: cover;
-    filter: blur(22px);
-    opacity: 0.38;
-    transform: scale(1.04);
-  }
-
-  .core-scene--hero::after {
-    background-image: url("assets/ecna-core-hero.jpeg");
-  }
-
-  .core-scene--second::after {
-    background-image: url("assets/ecna-core-second.jpeg");
-  }
-
-  .core-scene--final::after {
-    background-image: url("assets/core-final-dark-left.png");
-  }
-
-  .core-scene--hero::before,
-  .core-scene--second::before,
-  .core-scene--final::before {
-    z-index: 2;
-  }
-
   .core-scene--hero .core-scene__image {
-    z-index: 1;
-    object-fit: contain;
-    object-position: center center;
-    transform: scale(1.045) !important;
-    transform-origin: center center;
-  }
-
-  .core-scene--hero .core-scene__content,
-  .core-scene--second .core-scene__content,
-  .core-scene--final .core-scene__content {
-    z-index: 3;
+    object-fit: cover;
+    object-position: 72% 66%;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
   }
 
   .core-scene--second .core-scene__image {
-    z-index: 1;
-    object-fit: contain;
-    object-position: center center;
-    transform: scale(1.045) !important;
-    transform-origin: center center;
+    object-fit: cover;
+    object-position: 66% 72%;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
   }
 
   .core-scene--final .core-scene__image {
-    z-index: 1;
-    object-fit: contain;
-    object-position: center center;
-    transform: scale(1.045) !important;
-    transform-origin: center center;
+    object-fit: cover;
+    object-position: 32% 72%;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
   }
 
   .tide-section--hero .tide-section__image {

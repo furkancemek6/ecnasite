@@ -5372,6 +5372,209 @@ body::before {
   }
 }
 
+/* CAIRN reference typography for all collection and product pages */
+.monolith-section__copy,
+.flow-scene__copy,
+.nox-hero__content,
+.nox-story__text,
+.leviathan-scene__content,
+.tide-section__text,
+.core-scene__content,
+.cairn-scene__content,
+.talus-scene__content,
+.spar-scene__content,
+.drape-scene__content,
+.product-copy {
+  width: min(100% - 2.4rem, 27rem);
+  max-width: min(31rem, calc(100vw - 40px));
+  color: rgba(245, 240, 230, 0.62);
+  font-family: var(--ecna-font);
+  font-weight: 300;
+  text-align: left;
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.52);
+}
+
+.monolith-section__copy h1,
+.flow-scene__copy h1,
+.flow-scene__copy h1.reveal-text,
+.nox-hero__content h1,
+.leviathan-scene__content h1,
+.tide-section__text h1,
+.core-scene__content h1,
+.cairn-scene__content h1,
+.talus-scene__content h1,
+.spar-scene__content h1,
+.drape-scene__content h1,
+.product-copy h1 {
+  margin: 0;
+  color: rgba(245, 240, 230, 0.62);
+  font-family: var(--ecna-font);
+  font-size: clamp(1.05rem, 1.35vw, 1.45rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-align: left;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.monolith-section__copy h2,
+.flow-scene__copy h2,
+.flow-scene__copy h2.reveal-text,
+.leviathan-scene__content h2,
+.cairn-scene__content h2,
+.talus-scene__content h2,
+.spar-scene__content h2,
+.drape-scene__content h2,
+.core-scene__content--small p:not(.collection-final-note),
+.leviathan-scene__content--small p,
+.nox-story__text,
+.tide-section:not(.tide-section--hero) .tide-section__text p {
+  margin: 0;
+  color: rgba(245, 240, 230, 0.62);
+  font-family: var(--ecna-font);
+  font-size: clamp(15px, 1.4vw, 22px);
+  font-weight: 300;
+  line-height: 1.22;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.monolith-section__label,
+.flow-scene__label,
+.nox-hero__content p,
+.leviathan-scene__content:not(.leviathan-scene__content--small) p,
+.tide-section--hero .tide-section__text p,
+.core-scene__content:not(.core-scene__content--small) p,
+.cairn-scene__content:not(.core-scene__content--small) p,
+.talus-scene__content:not(.core-scene__content--small) p,
+.spar-scene__content:not(.core-scene__content--small) p,
+.drape-scene__content:not(.core-scene__content--small) p,
+.product-copy p,
+.collection-final-note,
+.tide-section__text span {
+  margin: 0.55rem 0 0;
+  color: rgba(245, 240, 230, 0.62);
+  font-family: var(--ecna-font);
+  font-size: clamp(0.8rem, 0.95vw, 1rem);
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.monolith-section__label,
+.flow-scene__label {
+  margin: 0 0 0.55rem;
+}
+
+.collection-inquire,
+.tide-inquire {
+  display: inline-block;
+  width: fit-content;
+  margin-top: 1rem;
+  padding: 0.72rem 0.92rem 0.68rem;
+  border: 1px solid rgba(245, 240, 230, 0.28);
+  color: rgba(245, 240, 230, 0.62);
+  font-family: var(--ecna-font);
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+  background: transparent;
+  opacity: 0.66;
+  transition:
+    border-color 300ms ease,
+    color 300ms ease,
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+.nox-story__text .collection-inquire,
+.tide-section__text .tide-inquire {
+  display: block;
+}
+
+.collection-inquire:hover,
+.collection-inquire:focus-visible,
+.tide-inquire:hover,
+.tide-inquire:focus-visible {
+  border-color: rgba(245, 240, 230, 0.46);
+  color: rgba(245, 240, 230, 0.78);
+  opacity: 0.9;
+  transform: scale(1.01);
+}
+
+@media (min-width: 769px) {
+  .monolith-section__copy,
+  .flow-scene__copy,
+  .nox-hero__content,
+  .nox-story__text,
+  .leviathan-scene__content,
+  .tide-section__text,
+  .core-scene__content,
+  .cairn-scene__content,
+  .talus-scene__content,
+  .spar-scene__content,
+  .drape-scene__content,
+  .product-copy {
+    top: clamp(5.5rem, 14svh, 8rem) !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: clamp(20px, 6vw, 96px) !important;
+  }
+
+  .monolith-section--detail .monolith-section__copy,
+  .flow-scene--detail .flow-scene__copy,
+  .nox-story--final .nox-story__text,
+  .leviathan-scene--chair .leviathan-scene__content,
+  .tide-section--angled .tide-section__text,
+  .core-scene--final .core-scene__content,
+  .cairn-scene--final .cairn-scene__content,
+  .talus-scene--final .talus-scene__content,
+  .spar-scene--final .spar-scene__content,
+  .drape-scene--final .drape-scene__content {
+    right: clamp(20px, 6vw, 96px) !important;
+    left: auto !important;
+  }
+
+  .product-copy {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .monolith-section__copy,
+  .flow-scene__copy,
+  .nox-hero__content,
+  .nox-story__text,
+  .leviathan-scene__content,
+  .tide-section__text,
+  .core-scene__content,
+  .cairn-scene__content,
+  .talus-scene__content,
+  .spar-scene__content,
+  .drape-scene__content,
+  .product-copy {
+    width: calc(100vw - 48px);
+    max-width: calc(100vw - 48px);
+    top: 84px !important;
+    right: 24px !important;
+    bottom: auto !important;
+    left: 24px !important;
+  }
+
+  .product-copy {
+    display: block;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body::before,
   .experience--landing .hero__image,

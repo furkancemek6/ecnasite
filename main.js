@@ -478,9 +478,10 @@ document.addEventListener("click", (event) => {
 
   event.preventDefault();
   pageFadeOverlay.classList.add("is-active");
+  prepareAmbientForNavigation();
   window.setTimeout(() => {
     window.location.href = link.href;
-  }, 360);
+  }, 420);
 });
 
 const soundToggle = document.createElement("button");
@@ -490,80 +491,236 @@ soundToggle.setAttribute("aria-pressed", "false");
 soundToggle.textContent = "SOUND OFF";
 document.body.append(soundToggle);
 
-let ambientContext = null;
-let ambientGain = null;
-let ambientStarted = false;
+const ambientSoundSource = "/assets/ecnases.mp3";
+const ambientTargetVolume = 0.12;
+const ambientFadeDuration = 420;
+const ambientPreferenceKey = "ecna-ambient-sound";
+const ambientTimeKey = "ecna-ambient-time";
+let ambientAudio = null;
+let ambientFadeFrame = null;
+let ambientResumeBound = false;
 let ambientEnabled = false;
+let ambientPageLeaving = false;
 
-const createAmbientSound = () => {
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContext) return false;
-
-  ambientContext = new AudioContext();
-  ambientGain = ambientContext.createGain();
-  ambientGain.gain.value = 0;
-
-  const lowpass = ambientContext.createBiquadFilter();
-  lowpass.type = "lowpass";
-  lowpass.frequency.value = 480;
-  lowpass.Q.value = 0.52;
-
-  const highpass = ambientContext.createBiquadFilter();
-  highpass.type = "highpass";
-  highpass.frequency.value = 35;
-
-  const buffer = ambientContext.createBuffer(1, ambientContext.sampleRate * 4, ambientContext.sampleRate);
-  const data = buffer.getChannelData(0);
-  let last = 0;
-
-  for (let i = 0; i < data.length; i += 1) {
-    const white = Math.random() * 2 - 1;
-    last = last * 0.986 + white * 0.014;
-    data[i] = last * 0.34;
+const setStoredValue = (key, value) => {
+  try {
+    window.localStorage?.setItem(key, value);
+  } catch {
+    // Local persistence is optional; playback should still work without it.
   }
-
-  const noise = ambientContext.createBufferSource();
-  noise.buffer = buffer;
-  noise.loop = true;
-
-  const tone = ambientContext.createOscillator();
-  const toneGain = ambientContext.createGain();
-  tone.type = "sine";
-  tone.frequency.value = 54;
-  toneGain.gain.value = 0.004;
-
-  noise.connect(highpass);
-  highpass.connect(lowpass);
-  lowpass.connect(ambientGain);
-  tone.connect(toneGain);
-  toneGain.connect(ambientGain);
-  ambientGain.connect(ambientContext.destination);
-
-  noise.start();
-  tone.start();
-  ambientStarted = true;
-  return true;
 };
 
-const setAmbientSound = async (enabled) => {
-  if (!ambientStarted && !createAmbientSound()) {
-    soundToggle.hidden = true;
+const getStoredValue = (key) => {
+  try {
+    return window.localStorage?.getItem(key) || "";
+  } catch {
+    return "";
+  }
+};
+
+const rememberAmbientPreference = (enabled) => {
+  setStoredValue(ambientPreferenceKey, enabled ? "on" : "off");
+};
+
+const rememberAmbientTime = () => {
+  if (!ambientAudio || !Number.isFinite(ambientAudio.currentTime)) return;
+  setStoredValue(ambientTimeKey, String(ambientAudio.currentTime));
+};
+
+const getAmbientPreference = () => getStoredValue(ambientPreferenceKey) === "on";
+
+const getAmbientTime = () => {
+  const value = Number(getStoredValue(ambientTimeKey) || 0);
+  return Number.isFinite(value) && value > 0 ? value : 0;
+};
+
+const updateSoundToggle = (preferenceEnabled, persist = true) => {
+  ambientEnabled = preferenceEnabled;
+  soundToggle.setAttribute("aria-pressed", String(preferenceEnabled));
+  soundToggle.textContent = preferenceEnabled ? "SOUND ON" : "SOUND OFF";
+  if (persist) rememberAmbientPreference(preferenceEnabled);
+};
+
+const cancelAmbientFade = () => {
+  if (!ambientFadeFrame) return;
+  window.cancelAnimationFrame(ambientFadeFrame);
+  ambientFadeFrame = null;
+};
+
+const fadeAmbientVolume = (targetVolume, onComplete) => {
+  const audio = ambientAudio;
+  if (!audio) return;
+
+  cancelAmbientFade();
+
+  const startVolume = audio.volume;
+  const startTime = performance.now();
+
+  const step = (now) => {
+    const progress = Math.min(1, (now - startTime) / ambientFadeDuration);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    audio.volume = startVolume + (targetVolume - startVolume) * eased;
+
+    if (progress < 1) {
+      ambientFadeFrame = window.requestAnimationFrame(step);
+      return;
+    }
+
+    ambientFadeFrame = null;
+    audio.volume = targetVolume;
+    onComplete?.();
+  };
+
+  ambientFadeFrame = window.requestAnimationFrame(step);
+};
+
+const restoreAmbientTime = (audio) => {
+  const savedTime = getAmbientTime();
+  if (!savedTime) return;
+
+  const applySavedTime = () => {
+    try {
+      if (audio.duration && Number.isFinite(audio.duration)) {
+        audio.currentTime = savedTime % audio.duration;
+      } else {
+        audio.currentTime = savedTime;
+      }
+    } catch {
+      // Safari may defer seeking until metadata is ready.
+    }
+  };
+
+  if (audio.readyState >= 1) {
+    applySavedTime();
+  } else {
+    audio.addEventListener("loadedmetadata", applySavedTime, { once: true });
+  }
+};
+
+const getAmbientAudio = () => {
+  if (ambientAudio) return ambientAudio;
+
+  ambientAudio = new Audio(ambientSoundSource);
+  ambientAudio.loop = true;
+  ambientAudio.muted = false;
+  ambientAudio.volume = 0;
+  ambientAudio.preload = "auto";
+  ambientAudio.setAttribute("playsinline", "");
+
+  ambientAudio.addEventListener("playing", () => {
+    if (getAmbientPreference()) updateSoundToggle(true, false);
+  });
+  ambientAudio.addEventListener("timeupdate", rememberAmbientTime);
+  ambientAudio.addEventListener("pause", () => {
+    rememberAmbientTime();
+    if (!ambientAudio?.ended && !ambientPageLeaving && !getAmbientPreference()) updateSoundToggle(false, false);
+  });
+  ambientAudio.addEventListener("error", () => {
+    cancelAmbientFade();
+    updateSoundToggle(false);
+  });
+
+  restoreAmbientTime(ambientAudio);
+  return ambientAudio;
+};
+
+const bindAmbientResume = () => {
+  if (ambientResumeBound || !getAmbientPreference()) return;
+  ambientResumeBound = true;
+
+  const resumeFromNextGesture = (event) => {
+    if (event.target instanceof Element && event.target.closest(".ambient-sound-toggle")) return;
+
+    startAmbientSound({ keepPreferenceOnFailure: true }).finally(() => {
+      if (!ambientAudio || !ambientAudio.paused) {
+        document.removeEventListener("pointerdown", resumeFromNextGesture, true);
+        document.removeEventListener("keydown", resumeFromNextGesture, true);
+        ambientResumeBound = false;
+      }
+    });
+  };
+
+  document.addEventListener("pointerdown", resumeFromNextGesture, true);
+  document.addEventListener("keydown", resumeFromNextGesture, true);
+};
+
+const startAmbientSound = async ({ keepPreferenceOnFailure = false } = {}) => {
+  updateSoundToggle(true);
+
+  const audio = getAmbientAudio();
+  cancelAmbientFade();
+  audio.loop = true;
+  audio.muted = false;
+
+  try {
+    if (audio.paused) {
+      await audio.play();
+    }
+
+    updateSoundToggle(true, false);
+    fadeAmbientVolume(ambientTargetVolume);
+  } catch {
+    if (keepPreferenceOnFailure && !audio.error) {
+      updateSoundToggle(true, false);
+      bindAmbientResume();
+    } else {
+      updateSoundToggle(false);
+    }
+  }
+};
+
+const stopAmbientSound = () => {
+  updateSoundToggle(false);
+
+  if (!ambientAudio) return;
+
+  rememberAmbientTime();
+  fadeAmbientVolume(0, () => {
+    ambientAudio.pause();
+  });
+};
+
+function prepareAmbientForNavigation() {
+  ambientPageLeaving = true;
+  rememberAmbientTime();
+
+  if (!ambientAudio || ambientAudio.paused) return;
+
+  fadeAmbientVolume(0, rememberAmbientTime);
+}
+
+soundToggle.addEventListener("click", () => {
+  if (getAmbientPreference()) {
+    stopAmbientSound();
     return;
   }
 
-  if (ambientContext?.state === "suspended") await ambientContext.resume();
-
-  const now = ambientContext.currentTime;
-  ambientGain.gain.cancelScheduledValues(now);
-  ambientGain.gain.setTargetAtTime(enabled ? 0.035 : 0, now, 0.32);
-  ambientEnabled = enabled;
-  soundToggle.setAttribute("aria-pressed", String(enabled));
-  soundToggle.textContent = enabled ? "SOUND ON" : "SOUND OFF";
-};
-
-soundToggle.addEventListener("click", () => {
-  setAmbientSound(!ambientEnabled).catch(() => {
-    soundToggle.hidden = true;
-  });
+  startAmbientSound();
 });
+
+window.addEventListener("pagehide", () => {
+  ambientPageLeaving = true;
+  rememberAmbientTime();
+});
+
+window.addEventListener("beforeunload", () => {
+  ambientPageLeaving = true;
+  rememberAmbientTime();
+});
+
+window.addEventListener("pageshow", () => {
+  ambientPageLeaving = false;
+
+  if (getAmbientPreference()) {
+    updateSoundToggle(true, false);
+    startAmbientSound({ keepPreferenceOnFailure: true });
+  } else {
+    updateSoundToggle(false, false);
+  }
+});
+
+if (getAmbientPreference()) {
+  updateSoundToggle(true, false);
+  startAmbientSound({ keepPreferenceOnFailure: true });
+}
 

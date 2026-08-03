@@ -1,7 +1,7 @@
 const root = document.documentElement;
 const cinematicScenes = Array.from(
   document.querySelectorAll(
-    ".experience--landing .scene, .monolith-section, .flow-scene, .nox-hero, .nox-story, .leviathan-scene, .tide-section, .core-scene, .cairn-scene, .talus-scene, .spar-scene",
+    ".experience--landing .scene, .monolith-section, .flow-scene, .nox-hero, .nox-story, .leviathan-scene, .tide-section, .core-scene, .cairn-scene, .talus-scene, .spar-scene, .drape-scene",
   ),
 );
 const scenes = cinematicScenes.length ? cinematicScenes : Array.from(document.querySelectorAll("[data-scene]"));
@@ -26,6 +26,7 @@ const collectionPreviewSources = {
   cairn: "assets/CAIRN HERO.jpeg",
   talus: "assets/talus hero.jpeg",
   spar: "assets/spar1.png",
+  drape: "assets/drape1.jpeg",
   leviathan: "assets/ecna-leviathan-main.png",
   flow: "assets/ecna-flow-final-object.png",
   nox: "assets/ecna-nox-scene.png",
@@ -107,6 +108,7 @@ document
       ".cairn-scene__content > *",
       ".talus-scene__content > *",
       ".spar-scene__content > *",
+      ".drape-scene__content > *",
       ".collections-index__label",
       ".collections-index__list a",
     ].join(", "),
@@ -425,3 +427,143 @@ if (connectForm) {
     }
   });
 }
+
+const pageFadeOverlay = document.createElement("div");
+pageFadeOverlay.className = "page-fade-overlay";
+pageFadeOverlay.setAttribute("aria-hidden", "true");
+document.body.append(pageFadeOverlay);
+
+const scrollProgress = document.createElement("div");
+scrollProgress.className = "scroll-progress";
+scrollProgress.setAttribute("aria-hidden", "true");
+document.body.append(scrollProgress);
+
+let progressTicking = false;
+const updateScrollProgress = () => {
+  const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  const progress = Math.max(0, Math.min(1, window.scrollY / scrollable));
+  scrollProgress.style.setProperty("--scroll-progress", progress.toFixed(4));
+  progressTicking = false;
+};
+
+const requestScrollProgress = () => {
+  if (progressTicking) return;
+  progressTicking = true;
+  window.requestAnimationFrame(updateScrollProgress);
+};
+
+window.addEventListener("scroll", requestScrollProgress, { passive: true });
+window.addEventListener("resize", requestScrollProgress);
+updateScrollProgress();
+
+const shouldFadeLink = (link, event) => {
+  if (!link || event.defaultPrevented || event.button !== 0) return false;
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
+  if (link.target && link.target !== "_self") return false;
+  if (link.hasAttribute("download")) return false;
+
+  const href = link.getAttribute("href");
+  if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+
+  const targetUrl = new URL(href, window.location.href);
+  if (targetUrl.origin !== window.location.origin) return false;
+  if (targetUrl.pathname === window.location.pathname && targetUrl.hash) return false;
+
+  return true;
+};
+
+document.addEventListener("click", (event) => {
+  const link = event.target instanceof Element ? event.target.closest("a[href]") : null;
+  if (!shouldFadeLink(link, event)) return;
+
+  event.preventDefault();
+  pageFadeOverlay.classList.add("is-active");
+  window.setTimeout(() => {
+    window.location.href = link.href;
+  }, 360);
+});
+
+const soundToggle = document.createElement("button");
+soundToggle.className = "ambient-sound-toggle";
+soundToggle.type = "button";
+soundToggle.setAttribute("aria-pressed", "false");
+soundToggle.textContent = "SOUND OFF";
+document.body.append(soundToggle);
+
+let ambientContext = null;
+let ambientGain = null;
+let ambientStarted = false;
+let ambientEnabled = false;
+
+const createAmbientSound = () => {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return false;
+
+  ambientContext = new AudioContext();
+  ambientGain = ambientContext.createGain();
+  ambientGain.gain.value = 0;
+
+  const lowpass = ambientContext.createBiquadFilter();
+  lowpass.type = "lowpass";
+  lowpass.frequency.value = 480;
+  lowpass.Q.value = 0.52;
+
+  const highpass = ambientContext.createBiquadFilter();
+  highpass.type = "highpass";
+  highpass.frequency.value = 35;
+
+  const buffer = ambientContext.createBuffer(1, ambientContext.sampleRate * 4, ambientContext.sampleRate);
+  const data = buffer.getChannelData(0);
+  let last = 0;
+
+  for (let i = 0; i < data.length; i += 1) {
+    const white = Math.random() * 2 - 1;
+    last = last * 0.986 + white * 0.014;
+    data[i] = last * 0.34;
+  }
+
+  const noise = ambientContext.createBufferSource();
+  noise.buffer = buffer;
+  noise.loop = true;
+
+  const tone = ambientContext.createOscillator();
+  const toneGain = ambientContext.createGain();
+  tone.type = "sine";
+  tone.frequency.value = 54;
+  toneGain.gain.value = 0.004;
+
+  noise.connect(highpass);
+  highpass.connect(lowpass);
+  lowpass.connect(ambientGain);
+  tone.connect(toneGain);
+  toneGain.connect(ambientGain);
+  ambientGain.connect(ambientContext.destination);
+
+  noise.start();
+  tone.start();
+  ambientStarted = true;
+  return true;
+};
+
+const setAmbientSound = async (enabled) => {
+  if (!ambientStarted && !createAmbientSound()) {
+    soundToggle.hidden = true;
+    return;
+  }
+
+  if (ambientContext?.state === "suspended") await ambientContext.resume();
+
+  const now = ambientContext.currentTime;
+  ambientGain.gain.cancelScheduledValues(now);
+  ambientGain.gain.setTargetAtTime(enabled ? 0.035 : 0, now, 0.32);
+  ambientEnabled = enabled;
+  soundToggle.setAttribute("aria-pressed", String(enabled));
+  soundToggle.textContent = enabled ? "SOUND ON" : "SOUND OFF";
+};
+
+soundToggle.addEventListener("click", () => {
+  setAmbientSound(!ambientEnabled).catch(() => {
+    soundToggle.hidden = true;
+  });
+});
+

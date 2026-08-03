@@ -4890,7 +4890,8 @@ textarea {
 /* CAIRN and TALUS collection pages */
 .cairn-page,
 .talus-page,
-.spar-page {
+.spar-page,
+.drape-page {
   min-height: 100vh;
   background: #050505;
   color: rgba(245, 240, 230, 0.62);
@@ -4898,7 +4899,8 @@ textarea {
 
 .cairn-scene,
 .talus-scene,
-.spar-scene {
+.spar-scene,
+.drape-scene {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -4910,7 +4912,8 @@ textarea {
 
 .cairn-scene__image,
 .talus-scene__image,
-.spar-scene__image {
+.spar-scene__image,
+.drape-scene__image {
   width: 100%;
   height: 100%;
   min-height: 100svh;
@@ -4920,14 +4923,16 @@ textarea {
 
 .cairn-scene__content,
 .talus-scene__content,
-.spar-scene__content {
+.spar-scene__content,
+.drape-scene__content {
   max-width: min(31rem, calc(100vw - 40px));
   text-shadow: 0 0 14px rgba(0, 0, 0, 0.52);
 }
 
 .cairn-scene__content h2,
 .talus-scene__content h2,
-.spar-scene__content h2 {
+.spar-scene__content h2,
+.drape-scene__content h2 {
   margin: 0;
   color: rgba(245, 240, 230, 0.62);
   font-family: var(--ecna-font);
@@ -4940,13 +4945,15 @@ textarea {
 
 .cairn-scene__content p + p,
 .talus-scene__content p + p,
-.spar-scene__content p + p {
+.spar-scene__content p + p,
+.drape-scene__content p + p {
   margin-top: 0.45rem;
 }
 
 .cairn-scene__content .collection-inquire,
 .talus-scene__content .collection-inquire,
-.spar-scene__content .collection-inquire {
+.spar-scene__content .collection-inquire,
+.drape-scene__content .collection-inquire {
   margin-top: 1rem;
 }
 
@@ -4987,6 +4994,22 @@ textarea {
     object-position: 50% 50%;
   }
 
+  .drape-scene--hero .drape-scene__image {
+    object-position: 50% 56%;
+  }
+
+  .drape-scene--second .drape-scene__image {
+    object-position: 50% 54%;
+  }
+
+  .drape-scene--third .drape-scene__image {
+    object-position: 50% 56%;
+  }
+
+  .drape-scene--final .drape-scene__image {
+    object-position: 50% 50%;
+  }
+
   .cairn-scene--hero .cairn-scene__content,
   .cairn-scene--second .cairn-scene__content {
     top: clamp(5.5rem, 14svh, 8rem) !important;
@@ -5017,6 +5040,34 @@ textarea {
     right: auto !important;
     bottom: clamp(3rem, 9svh, 6rem) !important;
     left: clamp(20px, 6vw, 96px) !important;
+  }
+
+  .drape-scene--hero .drape-scene__content {
+    top: clamp(5.5rem, 14svh, 8rem) !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: clamp(20px, 6vw, 96px) !important;
+  }
+
+  .drape-scene--second .drape-scene__content {
+    top: clamp(5.5rem, 14svh, 8rem) !important;
+    right: clamp(20px, 6vw, 96px) !important;
+    bottom: auto !important;
+    left: auto !important;
+  }
+
+  .drape-scene--third .drape-scene__content {
+    top: clamp(5.5rem, 14svh, 8rem) !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: clamp(20px, 6vw, 96px) !important;
+  }
+
+  .drape-scene--final .drape-scene__content {
+    top: auto !important;
+    right: clamp(20px, 6vw, 96px) !important;
+    bottom: clamp(3rem, 9svh, 6rem) !important;
+    left: auto !important;
   }
 }
 
@@ -5057,9 +5108,26 @@ textarea {
     object-position: 50% 50%;
   }
 
+  .drape-scene--hero .drape-scene__image {
+    object-position: 50% 56%;
+  }
+
+  .drape-scene--second .drape-scene__image {
+    object-position: 50% 54%;
+  }
+
+  .drape-scene--third .drape-scene__image {
+    object-position: 50% 56%;
+  }
+
+  .drape-scene--final .drape-scene__image {
+    object-position: 50% 50%;
+  }
+
   .cairn-scene__content,
   .talus-scene__content,
-  .spar-scene__content {
+  .spar-scene__content,
+  .drape-scene__content {
     left: 24px !important;
     right: 24px !important;
     top: 84px !important;
@@ -5068,7 +5136,170 @@ textarea {
   }
 
   .spar-scene--hero .spar-scene__content,
-  .spar-scene--second .spar-scene__content {
+  .spar-scene--second .spar-scene__content,
+  .drape-scene--hero .drape-scene__content,
+  .drape-scene--third .drape-scene__content {
     top: clamp(132px, 18svh, 164px) !important;
   }
 }
+
+/* Premium atmospheric experience layer */
+.page-fade-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 11500;
+  pointer-events: none;
+  opacity: 0;
+  background: #020202;
+  transition: opacity 420ms var(--ecna-ease);
+}
+
+.page-fade-overlay.is-active {
+  opacity: 1;
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  right: clamp(0.7rem, 1.2vw, 1.1rem);
+  z-index: 9500;
+  width: 1px;
+  height: 100svh;
+  pointer-events: none;
+  opacity: 0.32;
+  background: rgba(245, 240, 230, 0.08);
+}
+
+.scroll-progress::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  content: "";
+  background: rgba(245, 240, 230, 0.42);
+  transform: scaleY(var(--scroll-progress, 0));
+  transform-origin: top;
+  transition: transform 120ms linear;
+}
+
+.ambient-sound-toggle {
+  position: fixed;
+  top: 28px;
+  right: clamp(5.8rem, 9vw, 8.4rem);
+  z-index: 9600;
+  padding: 0;
+  border: 0;
+  color: rgba(245, 240, 230, 0.48);
+  font-family: var(--ecna-font);
+  font-size: clamp(0.62rem, 0.72vw, 0.76rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  opacity: 0.58;
+  transition: opacity 280ms ease, color 280ms ease;
+}
+
+.ambient-sound-toggle:hover,
+.ambient-sound-toggle:focus-visible,
+.ambient-sound-toggle[aria-pressed="true"] {
+  color: rgba(245, 240, 230, 0.68);
+  opacity: 0.9;
+}
+
+body.menu-open .ambient-sound-toggle {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body::before {
+  opacity: 0.026;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: soft-light;
+  animation: ecna-film-grain 14s steps(8, end) infinite;
+}
+
+@keyframes ecna-film-grain {
+  0% { background-position: 0 0; }
+  20% { background-position: -22px 18px; }
+  40% { background-position: 16px -20px; }
+  60% { background-position: -14px -8px; }
+  80% { background-position: 20px 14px; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes ecna-camera-drift {
+  0%, 100% {
+    translate: -0.28% -0.18%;
+    scale: 1.001;
+  }
+
+  50% {
+    translate: 0.28% 0.18%;
+    scale: 1.004;
+  }
+}
+
+.experience--landing .hero__image,
+.experience--landing .set__image,
+.experience--landing .threshold__image,
+.scene--monolith-cave img,
+.monolith-transition__image,
+.portal__image,
+.monolith-section__image,
+.flow-scene__image,
+.nox-hero__image,
+.nox-story__image,
+.leviathan-scene__image,
+.tide-section__image,
+.core-scene__image,
+.cairn-scene__image,
+.talus-scene__image,
+.spar-scene__image,
+.drape-scene__image {
+  animation: ecna-camera-drift 18s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .scroll-progress {
+    display: none;
+  }
+
+  .ambient-sound-toggle {
+    right: 86px;
+    font-size: 0.62rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  .experience--landing .hero__image,
+  .experience--landing .set__image,
+  .experience--landing .threshold__image,
+  .scene--monolith-cave img,
+  .monolith-transition__image,
+  .portal__image,
+  .monolith-section__image,
+  .flow-scene__image,
+  .nox-hero__image,
+  .nox-story__image,
+  .leviathan-scene__image,
+  .tide-section__image,
+  .core-scene__image,
+  .cairn-scene__image,
+  .talus-scene__image,
+  .spar-scene__image,
+  .drape-scene__image {
+    animation: none !important;
+  }
+
+  .page-fade-overlay,
+  .scroll-progress::after,
+  .ambient-sound-toggle {
+    transition: none !important;
+  }
+}
+

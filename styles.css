@@ -5243,6 +5243,18 @@ body::before {
   }
 }
 
+@keyframes ecna-camera-drift-tight {
+  0%, 100% {
+    translate: -0.08% -0.05%;
+    scale: 1.001;
+  }
+
+  50% {
+    translate: 0.08% 0.05%;
+    scale: 1.002;
+  }
+}
+
 .experience--landing .hero__image,
 .experience--landing .set__image,
 .experience--landing .threshold__image,
@@ -5261,6 +5273,92 @@ body::before {
 .spar-scene__image,
 .drape-scene__image {
   animation: ecna-camera-drift 18s ease-in-out infinite;
+}
+
+@media (min-width: 769px) {
+  .monolith-section--detail .monolith-section__image {
+    object-position: 58% center !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .tide-section--angled .tide-section__image {
+    object-position: 42% 68% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .nox-story--final .nox-story__image {
+    object-position: 50% 57% !important;
+  }
+
+  .leviathan-scene--chair .leviathan-scene__image {
+    object-position: 50% 58% !important;
+  }
+
+  .cairn-scene--final .cairn-scene__image {
+    object-position: 50% 72% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .spar-scene--final .spar-scene__image {
+    object-position: 50% 54% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .drape-scene--hero .drape-scene__image {
+    object-position: 50% 61% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .drape-scene--third .drape-scene__image {
+    object-position: 50% 60% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .drape-scene--final .drape-scene__image {
+    object-position: 50% 58% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 768px) {
+  .monolith-section--detail .monolith-section__image {
+    object-position: 63% center !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .tide-section--angled .tide-section__image {
+    object-position: 44% 64% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .nox-story--final .nox-story__image {
+    object-position: 48% 58% !important;
+  }
+
+  .leviathan-scene--chair .leviathan-scene__image {
+    object-position: 48% 58% !important;
+  }
+
+  .cairn-scene--final .cairn-scene__image {
+    object-position: 50% 62% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .spar-scene--final .spar-scene__image {
+    object-position: 50% 55% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .drape-scene--hero .drape-scene__image,
+  .drape-scene--final .drape-scene__image {
+    object-position: 50% 58% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
+
+  .drape-scene--third .drape-scene__image {
+    object-position: 50% 60% !important;
+    animation: ecna-camera-drift-tight 20s ease-in-out infinite;
+  }
 }
 
 @media (max-width: 768px) {
@@ -5302,4 +5400,3 @@ body::before {
     transition: none !important;
   }
 }
-

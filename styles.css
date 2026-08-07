@@ -6764,3 +6764,62 @@ select {
     opacity: var(--ecna-reveal-opacity) !important;
   }
 }
+
+/* Homepage second artwork caption: keep the image intact, install the text below it. */
+.experience--landing .scene--monolith-cave {
+  height: auto !important;
+  min-height: 100svh !important;
+  max-height: none !important;
+  overflow: visible !important;
+  background: #000;
+}
+
+.experience--landing .scene--monolith-cave::after {
+  inset: 0 0 auto 0;
+  height: 100svh;
+}
+
+.experience--landing .scene--monolith-cave .scene__media {
+  position: relative !important;
+  inset: auto !important;
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.experience--landing .scene--monolith-cave .scene__content {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 2;
+  display: block !important;
+  width: var(--ecna-copy-width);
+  max-width: var(--ecna-copy-width);
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 0 0 var(--ecna-gallery-x);
+  padding: clamp(1.25rem, 3.2svh, 2.4rem) 0 clamp(4.25rem, 8svh, 7rem);
+  color: var(--ecna-text);
+  background: #000;
+  overflow: visible;
+  scroll-snap-align: start;
+}
+
+.experience--landing .scene--monolith-cave .scene__content p {
+  max-width: min(24rem, calc(100vw - 40px));
+  color: var(--ecna-text) !important;
+  font-family: var(--ecna-font) !important;
+  font-size: var(--ecna-type-body) !important;
+  font-weight: 300 !important;
+  line-height: 1.46 !important;
+  letter-spacing: var(--ecna-track-body) !important;
+  text-transform: uppercase;
+  text-shadow: none !important;
+}
+
+.experience--landing .scene--monolith-cave .scene__note {
+  margin-top: clamp(0.72rem, 1.5svh, 1rem);
+}

@@ -4445,7 +4445,7 @@ body.menu-open .site-mark {
 
   .scene--monolith-cave img,
   .monolith-transition__image {
-    object-position: center center !important;
+    object-position: var(--ecna-mobile-image-x, center) var(--ecna-mobile-image-y, center) !important;
   }
 
   .portal__media img {
@@ -4453,7 +4453,7 @@ body.menu-open .site-mark {
   }
 
   .monolith-section--object .monolith-section__image {
-    object-position: center center !important;
+    object-position: var(--ecna-mobile-image-x, center) var(--ecna-mobile-image-y, center) !important;
   }
 
   .monolith-section--set .monolith-section__image {
@@ -5530,6 +5530,162 @@ body::before {
   }
 }
 
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .experience--landing .scene,
+  .experience--landing .scene__space,
+  .scene--monolith-cave,
+  .scene--monolith-transition,
+  .scene--portal,
+  .monolith-section,
+  .flow-scene,
+  .nox-hero,
+  .nox-story,
+  .leviathan-scene,
+  .tide-section,
+  .core-scene,
+  .cairn-scene,
+  .talus-scene,
+  .spar-scene,
+  .drape-scene,
+  .product-hero {
+    width: 100%;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    max-height: 100svh !important;
+    overflow: hidden;
+  }
+
+  .experience--landing .hero__image,
+  .experience--landing .set__image,
+  .experience--landing .threshold__image,
+  .scene--monolith-cave img,
+  .monolith-transition__image,
+  .portal__image,
+  .portal__media img,
+  .monolith-section__image,
+  .flow-scene__image,
+  .nox-hero__image,
+  .nox-story__image,
+  .leviathan-scene__image,
+  .tide-section__image,
+  .core-scene__image,
+  .cairn-scene__image,
+  .talus-scene__image,
+  .spar-scene__image,
+  .drape-scene__image,
+  .product-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100svh;
+    max-width: 100% !important;
+    max-height: 100svh !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    translate: none !important;
+    scale: none !important;
+    animation: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+
+  .monolith-section__copy,
+  .flow-scene__copy,
+  .nox-hero__content,
+  .nox-story__text,
+  .leviathan-scene__content,
+  .tide-section__text,
+  .core-scene__content,
+  .cairn-scene__content,
+  .talus-scene__content,
+  .spar-scene__content,
+  .drape-scene__content,
+  .product-copy {
+    width: calc(100vw - 48px) !important;
+    max-width: min(18rem, calc(100vw - 48px)) !important;
+    top: calc(env(safe-area-inset-top, 0px) + 76px) !important;
+    right: 24px !important;
+    bottom: auto !important;
+    left: 24px !important;
+    overflow: visible;
+  }
+
+  .monolith-section__copy h1,
+  .monolith-section__copy h2,
+  .flow-scene__copy h1,
+  .flow-scene__copy h2,
+  .nox-hero__content h1,
+  .nox-story__text,
+  .leviathan-scene__content h1,
+  .leviathan-scene__content h2,
+  .leviathan-scene__content--small p,
+  .tide-section__text h1,
+  .core-scene__content h1,
+  .cairn-scene__content h1,
+  .cairn-scene__content h2,
+  .talus-scene__content h1,
+  .talus-scene__content h2,
+  .spar-scene__content h1,
+  .spar-scene__content h2,
+  .drape-scene__content h1,
+  .drape-scene__content h2,
+  .product-copy h1 {
+    font-size: clamp(0.9rem, 4.4vw, 1.18rem) !important;
+    line-height: 1.16;
+  }
+
+  .hero__caption,
+  .scene__body,
+  .scene__note,
+  .monolith-transition__body,
+  .monolith-transition__note,
+  .monolith-section__label,
+  .flow-scene__label,
+  .nox-hero__content p,
+  .leviathan-scene__content p,
+  .core-scene__content p,
+  .cairn-scene__content p,
+  .talus-scene__content p,
+  .spar-scene__content p,
+  .drape-scene__content p,
+  .collection-final-note,
+  .collection-inquire,
+  .tide-section__text p,
+  .tide-section__text span,
+  .tide-inquire,
+  .product-copy p {
+    font-size: clamp(0.62rem, 2.75vw, 0.78rem) !important;
+    line-height: 1.34;
+  }
+
+  .collection-inquire,
+  .tide-inquire {
+    margin-top: 0.72rem;
+    padding: 0.58rem 0.72rem 0.54rem;
+    font-size: clamp(0.58rem, 2.45vw, 0.7rem) !important;
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape), (hover: none) and (pointer: coarse) and (orientation: landscape) {
+  .monolith-section__copy,
+  .flow-scene__copy,
+  .nox-hero__content,
+  .nox-story__text,
+  .leviathan-scene__content,
+  .tide-section__text,
+  .core-scene__content,
+  .cairn-scene__content,
+  .talus-scene__content,
+  .spar-scene__content,
+  .drape-scene__content,
+  .product-copy {
+    top: calc(env(safe-area-inset-top, 0px) + 56px) !important;
+    max-width: min(16rem, calc(100vw - 48px)) !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body::before,
   .experience--landing .hero__image,
@@ -5556,5 +5712,449 @@ body::before {
   .scroll-progress::after,
   .ambient-sound-toggle {
     transition: none !important;
+  }
+}
+
+@media (max-width: 900px), (max-height: 500px) and (orientation: landscape), (hover: none) and (pointer: coarse) {
+  .experience--landing .scene,
+  .experience--landing .scene__space,
+  .scene--monolith-cave,
+  .scene--monolith-transition,
+  .scene--portal,
+  .monolith-section,
+  .flow-scene,
+  .nox-hero,
+  .nox-story,
+  .leviathan-scene,
+  .tide-section,
+  .core-scene,
+  .cairn-scene,
+  .talus-scene,
+  .spar-scene,
+  .drape-scene,
+  .product-hero {
+    width: 100%;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    max-height: 100svh !important;
+    overflow: hidden;
+  }
+
+  .experience--landing .scene .hero__image,
+  .experience--landing .scene .set__image,
+  .experience--landing .scene .threshold__image,
+  .scene--monolith-cave img,
+  .scene--monolith-transition .monolith-transition__image,
+  .scene--portal .portal__image,
+  .scene--portal .portal__media img,
+  .monolith-section .monolith-section__image,
+  .flow-scene .flow-scene__image,
+  .nox-hero .nox-hero__image,
+  .nox-story .nox-story__image,
+  .leviathan-scene .leviathan-scene__image,
+  .tide-section .tide-section__image,
+  .core-scene .core-scene__image,
+  .cairn-scene .cairn-scene__image,
+  .talus-scene .talus-scene__image,
+  .spar-scene .spar-scene__image,
+  .drape-scene .drape-scene__image,
+  .product-hero .product-hero__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100svh;
+    max-width: 100% !important;
+    max-height: 100svh !important;
+    object-fit: contain !important;
+    object-position: var(--ecna-mobile-image-x, center) var(--ecna-mobile-image-y, center) !important;
+    transform: none !important;
+    translate: none !important;
+    scale: none !important;
+    animation: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape), (max-height: 500px) and (orientation: landscape), (hover: none) and (pointer: coarse) and (orientation: landscape) {
+  .monolith-section__copy,
+  .flow-scene__copy,
+  .nox-hero__content,
+  .nox-story__text,
+  .leviathan-scene__content,
+  .tide-section__text,
+  .core-scene__content,
+  .cairn-scene__content,
+  .talus-scene__content,
+  .spar-scene__content,
+  .drape-scene__content,
+  .product-copy {
+    top: calc(env(safe-area-inset-top, 0px) + 48px) !important;
+    bottom: auto !important;
+    max-width: min(15rem, calc(100vw - 48px)) !important;
+  }
+}
+
+@media (max-width: 900px) and (orientation: portrait), (hover: none) and (pointer: coarse) and (orientation: portrait) {
+  .monolith-section--object,
+  .monolith-section--set {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 54%;
+  }
+
+  .monolith-section--detail {
+    --ecna-mobile-image-x: 48%;
+    --ecna-mobile-image-y: 54%;
+  }
+
+  .tide-section--hero,
+  .tide-section--angled {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 57%;
+  }
+
+  .tide-section--top {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .leviathan-scene--hero,
+  .leviathan-scene--detail,
+  .leviathan-scene--set {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 55%;
+  }
+
+  .leviathan-scene--chair {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 53%;
+  }
+
+  .flow-scene--hero,
+  .flow-scene--set,
+  .flow-scene--detail {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 55%;
+  }
+
+  .nox-hero,
+  .nox-story {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 54%;
+  }
+
+  .core-scene--hero,
+  .core-scene--second {
+    --ecna-mobile-image-x: 52%;
+    --ecna-mobile-image-y: 53%;
+  }
+
+  .core-scene--final {
+    --ecna-mobile-image-x: 48%;
+    --ecna-mobile-image-y: 53%;
+  }
+
+  .cairn-scene--hero,
+  .cairn-scene--second,
+  .cairn-scene--final {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 56%;
+  }
+
+  .talus-scene--hero,
+  .talus-scene--second,
+  .talus-scene--final {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 56%;
+  }
+
+  .spar-scene--hero,
+  .spar-scene--second,
+  .spar-scene--final {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 55%;
+  }
+
+  .drape-scene--hero,
+  .drape-scene--second,
+  .drape-scene--third,
+  .drape-scene--final {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 55%;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape), (max-height: 500px) and (orientation: landscape), (hover: none) and (pointer: coarse) and (orientation: landscape) {
+  .monolith-section--object,
+  .monolith-section--set {
+    --ecna-mobile-image-x: 52%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .monolith-section--detail {
+    --ecna-mobile-image-x: 47%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .tide-section--hero {
+    --ecna-mobile-image-x: 54%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .tide-section--top {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 48%;
+  }
+
+  .tide-section--angled {
+    --ecna-mobile-image-x: 52%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .leviathan-scene--hero,
+  .leviathan-scene--detail {
+    --ecna-mobile-image-x: 52%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .leviathan-scene--set,
+  .leviathan-scene--chair {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .flow-scene--hero,
+  .flow-scene--set {
+    --ecna-mobile-image-x: 53%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .flow-scene--detail {
+    --ecna-mobile-image-x: 50%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .nox-hero,
+  .nox-story {
+    --ecna-mobile-image-x: 52%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .core-scene--hero,
+  .core-scene--second {
+    --ecna-mobile-image-x: 56%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .core-scene--final {
+    --ecna-mobile-image-x: 44%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .cairn-scene--hero,
+  .cairn-scene--second,
+  .cairn-scene--final {
+    --ecna-mobile-image-x: 53%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .talus-scene--hero,
+  .talus-scene--second,
+  .talus-scene--final {
+    --ecna-mobile-image-x: 53%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .spar-scene--hero,
+  .spar-scene--second,
+  .spar-scene--final {
+    --ecna-mobile-image-x: 52%;
+    --ecna-mobile-image-y: 50%;
+  }
+
+  .drape-scene--hero,
+  .drape-scene--second,
+  .drape-scene--third,
+  .drape-scene--final {
+    --ecna-mobile-image-x: 52%;
+    --ecna-mobile-image-y: 50%;
+  }
+}
+
+/* Complete-source desktop framing: the page remains fullscreen while each source image stays intact. */
+@media (min-width: 901px) and (min-height: 501px) {
+  .experience--landing .scene,
+  .experience--landing .scene__space,
+  .scene--monolith-cave,
+  .scene--monolith-transition,
+  .scene--portal,
+  .monolith-section,
+  .flow-scene,
+  .nox-hero,
+  .nox-story,
+  .leviathan-scene,
+  .tide-section,
+  .core-scene,
+  .cairn-scene,
+  .talus-scene,
+  .spar-scene,
+  .drape-scene,
+  .product-hero {
+    width: 100%;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    max-height: 100svh !important;
+    overflow: hidden;
+  }
+
+  .experience--landing img.hero__image,
+  .experience--landing .set__image,
+  .experience--landing .threshold__image,
+  .scene--monolith-cave img,
+  .scene--monolith-transition .monolith-transition__image,
+  .scene--portal .portal__media img,
+  .scene--portal .portal__image,
+  .monolith-section .monolith-section__image,
+  .flow-scene .flow-scene__image,
+  .nox-hero .nox-hero__image,
+  .nox-story .nox-story__image,
+  .leviathan-scene .leviathan-scene__image,
+  .tide-section .tide-section__image,
+  .core-scene .core-scene__image,
+  .cairn-scene .cairn-scene__image,
+  .talus-scene .talus-scene__image,
+  .spar-scene .spar-scene__image,
+  .drape-scene .drape-scene__image,
+  .product-hero .product-hero__image {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block;
+    width: min(var(--ecna-desktop-max-width, 1920px), 100vw) !important;
+    height: min(var(--ecna-desktop-max-height, 1200px), 100svh) !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 100vw !important;
+    max-height: 100svh !important;
+    margin: auto !important;
+    object-fit: contain !important;
+    object-position: var(--ecna-desktop-image-x, 50%) var(--ecna-desktop-image-y, 50%) !important;
+    transform: none !important;
+    translate: none !important;
+    scale: none !important;
+    animation: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+
+  .experience--landing video.hero__image {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 100vw !important;
+    max-height: 100svh !important;
+    object-fit: contain !important;
+    object-position: 50% 50% !important;
+    transform: none !important;
+    translate: none !important;
+    scale: none !important;
+    animation: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+
+  .experience--landing .scene--hero {
+    --ecna-desktop-max-width: 1920px;
+    --ecna-desktop-max-height: 1080px;
+  }
+
+  .scene--monolith-cave,
+  .scene--monolith-transition,
+  .scene--portal,
+  .monolith-section,
+  .flow-scene,
+  .leviathan-scene--hero,
+  .leviathan-scene--set,
+  .tide-section--angled,
+  .nox-hero,
+  .nox-story,
+  .cairn-scene--hero,
+  .cairn-scene--second,
+  .spar-scene--hero,
+  .spar-scene--second,
+  .drape-scene--second,
+  .drape-scene--final {
+    --ecna-desktop-max-width: 1840px;
+    --ecna-desktop-max-height: 1160px;
+    --ecna-desktop-image-x: 50%;
+    --ecna-desktop-image-y: 50%;
+  }
+
+  .monolith-section--object,
+  .monolith-section--set,
+  .flow-scene--hero,
+  .flow-scene--detail {
+    --ecna-desktop-max-width: 1680px;
+    --ecna-desktop-max-height: 960px;
+    --ecna-desktop-image-x: 50%;
+    --ecna-desktop-image-y: 50%;
+  }
+
+  .flow-scene--set {
+    --ecna-desktop-max-width: 1680px;
+    --ecna-desktop-max-height: 1120px;
+    --ecna-desktop-image-x: 50%;
+    --ecna-desktop-image-y: 50%;
+  }
+
+  .monolith-section--detail,
+  .leviathan-scene--detail,
+  .leviathan-scene--chair,
+  .nox-story--final,
+  .cairn-scene--final,
+  .spar-scene--final,
+  .drape-scene--third {
+    --ecna-desktop-max-width: 1360px;
+    --ecna-desktop-max-height: 1120px;
+    --ecna-desktop-image-x: 50%;
+    --ecna-desktop-image-y: 50%;
+  }
+
+  .tide-section--hero,
+  .tide-section--top {
+    --ecna-desktop-max-width: 1360px;
+    --ecna-desktop-max-height: 1120px;
+    --ecna-desktop-image-x: 50%;
+    --ecna-desktop-image-y: 50%;
+  }
+
+  .core-scene--hero,
+  .core-scene--second {
+    --ecna-desktop-max-width: 1180px;
+    --ecna-desktop-max-height: 1280px;
+    --ecna-desktop-image-x: 52%;
+    --ecna-desktop-image-y: 50%;
+  }
+
+  .core-scene--final {
+    --ecna-desktop-max-width: 1180px;
+    --ecna-desktop-max-height: 1280px;
+    --ecna-desktop-image-x: 47%;
+    --ecna-desktop-image-y: 50%;
+  }
+
+  .talus-scene--hero,
+  .talus-scene--second,
+  .talus-scene--final,
+  .drape-scene--hero {
+    --ecna-desktop-max-width: 1320px;
+    --ecna-desktop-max-height: 1280px;
+    --ecna-desktop-image-x: 50%;
+    --ecna-desktop-image-y: 50%;
   }
 }

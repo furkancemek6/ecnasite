@@ -31,6 +31,8 @@ const collectionPreviewSources = {
   flow: "assets/ecna-flow-final-object.png",
   nox: "assets/ecna-nox-scene.png",
 };
+const transparentPreviewSource =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 document.body.classList.add("page-transition-ready");
 
@@ -279,6 +281,7 @@ const setupMenuPreview = () => {
 
   const previewImage = document.createElement("img");
   previewImage.alt = "";
+  previewImage.src = transparentPreviewSource;
   preview.append(previewImage);
   drawer.append(preview);
 
@@ -723,4 +726,3 @@ if (getAmbientPreference()) {
   updateSoundToggle(true, false);
   startAmbientSound({ keepPreferenceOnFailure: true });
 }
-

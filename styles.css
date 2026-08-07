@@ -6800,8 +6800,8 @@ select {
   max-width: var(--ecna-copy-width);
   height: auto !important;
   min-height: 0 !important;
-  margin: 0 0 0 var(--ecna-gallery-x);
-  padding: clamp(1.25rem, 3.2svh, 2.4rem) 0 clamp(4.25rem, 8svh, 7rem);
+  margin: clamp(-0.45rem, -0.7svh, -0.25rem) 0 0 var(--ecna-gallery-x);
+  padding: 0 0 clamp(3.6rem, 7svh, 6rem);
   color: var(--ecna-text);
   background: #000;
   overflow: visible;
